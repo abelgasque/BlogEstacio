@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "BlogEstacio"
+    }
+  },
+  "defaultProject": "BlogEstacio",
+  "cli": {
+    "analytics": false
+  }
 }
