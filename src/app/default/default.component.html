@@ -1,0 +1,11 @@
+<app-toasty></app-toasty>
+<app-navbar></app-navbar>
+<mat-tab-group mat-align-tabs="start" [selectedIndex]="selected.value"
+    (selectedIndexChange)="selected.setValue($event)">
+    <mat-tab label="Landing Page">
+        <app-landpage></app-landpage>
+    </mat-tab>
+    <mat-tab label="Publicações">
+        <app-home></app-home>
+    </mat-tab>
+</mat-tab-group>

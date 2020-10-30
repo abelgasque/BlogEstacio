@@ -1,0 +1,17 @@
+.img_publicacao{
+    width: 100%;
+    height: 250px;
+}
+
+.box_img_publicacao{
+    margin: auto;
+}
+
+tr > td {
+    padding-bottom:  20px;
+}
+
+pInputTextarea{
+    color: black !important;
+    background: none !important;
+}

@@ -1,0 +1,136 @@
+<div class="p-fluid">
+    <form class="col-12" #formPessoa="ngForm" autocomplete="off" (ngSubmit)="gerenciarPersistencia(formPessoa)">
+        <div class="col-12">
+            <p-panel header="Foto de perfil">
+                <div class="box">
+                    <img class="img" [src]="pathImgPessoaPerfil+pessoa.img_pessoa">
+                    <button type="button" label="Escolher" (click)="getImg()" pButton></button>
+                </div>
+            </p-panel>
+        </div>
+        <p-panel  class="col-12" header="Dados pessoais">
+            <div class="p-grid p-fluid">
+                <div class="col-6 col-md-3">
+                    <label>Nome</label>
+                    <input type="text" name="nome" [(ngModel)]="pessoa.nome" required maxlength="20" pInputText>
+                    <small class="obrigatorio">Campo obrigatorio</small>
+                </div>
+                <div class="col-12 col-md-4">
+                    <label>Sobrenome</label>
+                    <input type="text" name="sobrenome" [(ngModel)]="pessoa.sobrenome" maxlength="50" pInputText>
+                    <small class="opcional">Campo opcional</small>
+                </div>
+                <div class="col-6 col-md-2">
+                    <label>CPF</label>
+                    <p-inputMask mask="999.999.999-99" name="cpf" [(ngModel)]="pessoa.cpf" required></p-inputMask>
+                    <small class="obrigatorio">Campo obrigatorio</small>
+                </div>
+                <div class="col-6 col-md-2">
+                    <label>Genero</label>
+                    <p-dropdown name="genero" [options]="generos" appendTo="body" [(ngModel)]="pessoa.genero">
+                    </p-dropdown>
+                    <small class="opcional">Campo opcional</small>
+                </div>
+                <div class="col-6 col-md-2" [hidden]="!isTipo">
+                    <label>Tipo</label>
+                    <p-dropdown name="tipo" [options]="tipos" appendTo="body" [(ngModel)]="pessoa.tipo_pessoa" required>
+                    </p-dropdown>
+                    <small class="obrigatorio">Campo obrigatorio</small>
+                </div>
+                <div class="col-12 col-md-4">
+                    <label>E-mail</label>
+                    <input type="text" name="email" [(ngModel)]="pessoa.email" required maxlength="100" pInputText>
+                    <small class="obrigatorio">Campo obrigatorio</small>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label>Celular</label>
+                    <p-inputMask mask="(99) 99999-9999" name="celular" [(ngModel)]="pessoa.celular" required>
+                    </p-inputMask>
+                    <small class="obrigatorio">Campo obrigatorio</small>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label>Telefone</label>
+                    <p-inputMask mask="(99) 9999-9999" name="telefone" [(ngModel)]="pessoa.telefone"></p-inputMask>
+                    <small class="opcional">Campo opcional</small>
+                </div>
+                <div class="col-12 col-md-4">
+                    <label>Senha</label>
+                    <input type="password" pPassword name="senha" [(ngModel)]="pessoa.senha" required maxlength="20">
+                    <small class="obrigatorio">Campo obrigatorio</small>
+                </div>
+                <div class="col-12 col-md-4" [hidden]="!isSituacao">
+                    <label>Situação</label>
+                    <p-selectButton [options]="situacoes" name="situacao" [(ngModel)]="pessoa.situacao_pessoa" required>
+                    </p-selectButton>
+                    <small class="obrigatorio">Campo obrigatório</small>
+                </div>
+            </div>
+        </p-panel>
+        <p-panel  class="col-12" header="Endereço">
+            <div class="p-grid p-fluid">
+                <div class="col-6 col-md-2">
+                    <label>CEP</label>
+                    <p-inputMask mask="99999-999" name="cep" [(ngModel)]="pessoa.cep"></p-inputMask>
+                    <small class="opcional">Campo opcional</small>
+                </div>
+                <div class="col-6 col-md-1">
+                    <label>UF</label>
+                    <input pInputText type="text" name="uf" [(ngModel)]="pessoa.uf" maxlength="2">
+                    <small class="opcional">Opcional</small>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label>Cidade</label>
+                    <input pInputText type="text" name="cidade" [(ngModel)]="pessoa.cidade" maxlength="30">
+                    <small class="opcional">Campo opcional</small>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label>Bairro</label>
+                    <input pInputText type="text" name="bairro" [(ngModel)]="pessoa.bairro" maxlength="30">
+                    <small class="opcional">Campo opcional</small>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label>Logradouro</label>
+                    <input pInputText type="text" name="logradouro" [(ngModel)]="pessoa.logradouro" maxlength="50">
+                    <small class="opcional">Campo opcional</small>
+                </div>
+                <div class="col-6 col-md-2">
+                    <label>Complemento</label>
+                    <input pInputText type="text" name="complemento" [(ngModel)]="pessoa.complemento" maxlength="15">
+                    <small class="opcional">Campo opcional</small>
+                </div>
+                <div class="col-6 col-md-2">
+                    <label>Número</label>
+                    <input pInputText type="text" name="numero" [(ngModel)]="pessoa.numero" maxlength="10">
+                    <small class="opcional">Opcional</small>
+                </div>
+            </div>
+        </p-panel>
+        <div class="col-12">
+            <div class="col-12 col-md-2">
+                <button type="button" class="p-button-outlined" icon="pi pi-check"
+                    (click)="gerenciarPersistencia(formPessoa)" [label]="pessoa.id_pessoa == 0?'Adicionar':'Editar'"
+                    [disabled]="!formPessoa.valid" pButton></button>
+            </div>
+            <div class="col-12 col-md-2">
+                <p-button icon="pi pi-times" label="Cancelar" (click)="retornoPersistencia.emit(false)"></p-button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<p-dialog header="Escolha foto perfil" [(visible)]="displayImages" [modal]="true" [style]="{width: '400px'}">
+    <p-table [value]="images" [responsive]="true" selectionMode="single" [(selection)]="imagemSelecionada"
+        dataKey="title">
+        <ng-template pTemplate="body" let-rowData>
+            <tr [pSelectableRow]="rowData">
+                <img class="selecao_img" [src]="pathImgPessoaPerfil+rowData.title" alt="Foto de perfil do usuario">
+            </tr>
+        </ng-template>
+    </p-table>
+    <p-footer>
+        <button type="button" class="p-button-outlined" icon="pi pi-check" (click)="setImg()" label="Selecionar"
+            pButton></button>
+        <p-button icon="pi pi-times" label="Cancelar" (click)="displayImages=false"></p-button>
+    </p-footer>
+</p-dialog>
