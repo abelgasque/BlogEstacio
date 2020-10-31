@@ -11,16 +11,16 @@
         Inscreva-se
     </a>
     <a mat-button *ngIf="this.pessoa!=null" [matMenuTriggerFor]="menu">
-        <img class="img_perfil_pessoal_navbar" [src]="pathImgPessoa+this.pessoa.img_pessoa">
-        {{this.pessoa?.nome}}
+        <img class="img_perfil_pessoal_navbar" [src]="this.pessoa.photoURL">
+        {{this.pessoa?.displayName}}
     </a>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu" yPosition="above">
     <div class="row p-fluid header" mat-menu-item routerLinkActive="select" *ngIf="this.pessoa!=null">
-        <img class="col-12 img center" [src]="pathImgPessoa+this.pessoa.img_pessoa">
-        <h4 class="col-12 people">{{this.pessoa?.nome}} {{this.pessoa?.sobrenome}}</h4>
-        <p class="col-12 people">{{this.pessoa?.tipo_pessoa}}</p>
+        <img class="col-12 img center" [src]="this.pessoa.photoURL">
+        <h4 class="col-12 people">{{this.pessoa?.displayName}}</h4>
+        <p class="col-12 people">{{this.pessoa?.email}}</p>
     </div>
     <mat-divider></mat-divider>
     <a mat-menu-item routerLinkActive="active" [routerLink]="['/pessoa']"

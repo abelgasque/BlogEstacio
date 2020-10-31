@@ -5,8 +5,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireModule } from "@angular/fire";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -18,6 +20,22 @@ import { SegurancaModule } from './seguranca/seguranca.module';
 import { PublicacaoModule } from './publicacao/publicacao.module';
 
 registerLocaleData(localePt);
+// Firebase App (the core Firebase SDK) is always required and must be listed first
+import * as firebase from "firebase/app";
+
+// Add the Firebase products that you want to use
+import "firebase/auth";
+import "firebase/firestore";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDIKJpbca_HnfKF5jHu8bBy4P2iZB2pkUQ",
+  authDomain: "blog-6dd54.firebaseapp.com",
+  databaseURL: "https://blog-6dd54.firebaseio.com",
+  projectId: "blog-6dd54",
+  storageBucket: "blog-6dd54.appspot.com",
+  messagingSenderId: "566860481127",
+  appId: "1:566860481127:web:87f1866a39102e9c324ac2"
+};
 
 @NgModule({
   declarations: [
@@ -28,8 +46,10 @@ registerLocaleData(localePt);
     BrowserAnimationsModule,
     RouterModule,
     AppRoutingModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireDatabaseModule,
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFirestoreModule,
+    AngularFireAuthModule, 
+    AngularFireStorageModule, 
 
     SharedModule,
     DefaultModule,
@@ -39,7 +59,7 @@ registerLocaleData(localePt);
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-br' },
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
   ],
   bootstrap: [AppComponent]
 })

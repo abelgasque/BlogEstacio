@@ -13,9 +13,10 @@ import { PessoaModule } from '../pessoa/pessoa.module';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
-import {InputMaskModule} from 'primeng/inputmask';
+import { InputMaskModule } from 'primeng/inputmask';
 
 import { ApoioService } from './../util/apoio.service';
+import { AuthService } from './auth.service';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ApoioService } from './../util/apoio.service';
     PessoaModule
   ],
   providers: [
-    ApoioService
+    ApoioService,
+    AuthService
   ]
 })
 export class SegurancaModule { }

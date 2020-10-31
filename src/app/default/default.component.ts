@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -9,10 +10,18 @@ import { FormControl } from '@angular/forms';
 export class DefaultComponent implements OnInit {
 
   selected = new FormControl(0);
-  
-  constructor() { }
 
+  // constructor(private db: AngularFirestore) {
+  //   const things = db.collection('pessoa').valueChanges();
+  //   things.subscribe(console.log);
+  // }
+
+  constructor(public afAuth: AngularFireAuth) {
+
+  }
   ngOnInit(): void {
   }
 
+  // Sign in with Google
+  
 }

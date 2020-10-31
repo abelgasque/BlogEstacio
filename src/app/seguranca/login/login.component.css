@@ -1,8 +1,7 @@
 .row{
     height: 100% !important;
     width:  100% !important;
-    background-image: url(../../../assets/img/fundo-login.png);
-    background-repeat: no-repeat;
+    background: rgb(255, 255, 255);
 }
 
 .box{

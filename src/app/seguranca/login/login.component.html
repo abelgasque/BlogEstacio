@@ -8,8 +8,8 @@
         </div>
         <form #f="ngForm" autocomplete="off" (ngSubmit)="login()">
             <div class="col-12 p-fluid">
-                <label>CPF</label>
-                <p-inputMask mask="999.999.999-99" name="cpf" [(ngModel)]="cpf" required></p-inputMask>
+                <label>Email</label>
+                <input pInputText type="text" name="email" [(ngModel)]="email" required>
             </div>
             <div class="col-12 p-fluid">
                 <label>Senha</label>
@@ -17,8 +17,9 @@
                     required>
             </div>
             <div class="col-12 p-fluid">
-                <button pButton type="submit" label="Entrar" [disabled]="!f.valid"></button>
+                <button pButton type="submit" label="Login"></button>
             </div>
+            
         </form>
         <div class="col-12">
             <div class="col-12" fxLayoutAlign="center center">

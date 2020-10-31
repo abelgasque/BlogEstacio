@@ -4,6 +4,9 @@ import { PessoaService } from 'src/app/pessoa/pessoa.service';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 import { ApoioService } from 'src/app/util/apoio.service';
 import { Pessoa } from 'src/app/util/model';
+import { AuthService } from '../auth.service';
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase/app';
 
 @Component({
   selector: 'app-login',
@@ -12,43 +15,40 @@ import { Pessoa } from 'src/app/util/model';
 })
 export class LoginComponent implements OnInit {
 
-  cpf: string;
+  email: string;
   senha: string;
   pessoa = new Pessoa();
-  displaySpinner: boolean =false;
+  displaySpinner: boolean = false;
+  userData:any;
 
   constructor(
     private apoioService: ApoioService,
-    private pessoaService: PessoaService,
     private toastyService: ToastyService,
-    private router: Router
-  ) { }
-
-  ngOnInit(): void {
-    this.apoioService.removePessoaStorage();
+    private router: Router,
+    public auth: AngularFireAuth
+  ) {
+    
   }
 
+  ngOnInit(): void { }
+
   login() {
-    this.pessoaService.getByCpf(this.cpf)
-      .then(resp => {
-        this.validarForm(resp);
-      })
-      .catch(resp => {
-        console.log(resp);
-        this.toastyService.showError("Erro ao buscar pessoa por cpf");
-      });
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  }
+  logout() {
+    this.auth.signOut();
   }
 
   validarForm(pessoa: any) {
     if (pessoa == undefined || pessoa == null || pessoa == []) {
       this.toastyService.showWarn("Pessoa não encontrada");
-    }else{
-      if(pessoa[0].situacao_pessoa == "INATIVO"){
+    } else {
+      if (pessoa[0].situacao_pessoa == "INATIVO") {
         this.toastyService.showWarn("Usuario inátivo, entre em contato com administrador do sistema!");
-      }else if(pessoa[0].senha != this.senha){
+      } else if (pessoa[0].senha != this.senha) {
         this.toastyService.showWarn("Senha incorreta!");
         this.senha = null;
-      }else{
+      } else {
         this.apoioService.setPessoaStorage(pessoa[0]);
         this.router.navigate(['']);
       }

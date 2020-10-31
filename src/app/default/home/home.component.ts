@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     AOS.init();
-    this.getAll();
+    // this.getAll();
   }
 
   getAll(){
