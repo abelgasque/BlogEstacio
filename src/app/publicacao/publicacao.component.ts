@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl } from '@angular/forms';
 import { ToastyService } from '../shared/components/toasty/toasty.service';
 import { ApoioService } from '../util/apoio.service';
 import { Publicacao } from '../util/model';
-import { PublicacaoService } from './publicacao.service';
 
 @Component({
   selector: 'app-publicacao',
@@ -20,16 +20,16 @@ export class PublicacaoComponent implements OnInit {
 
   constructor(
     public apoioService: ApoioService,
-    private publicacaoService: PublicacaoService,
-    private toastyService: ToastyService
-  ) { }
-
-  ngOnInit(): void {
+    private toastyService: ToastyService,
+    private db: AngularFirestore
+  ) { 
     this.getAll();
   }
 
-  retornoPersistenciaForm(event: boolean){
-    if(event){
+  ngOnInit(): void {}
+
+  retornoPersistenciaForm(event: boolean) {
+    if (event) {
       this.getAll();
     }
     this.selected.setValue(0);
@@ -39,7 +39,7 @@ export class PublicacaoComponent implements OnInit {
     this.publicacao = new Publicacao();
     this.titleForm = "Alterar";
     this.getById(id);
-    
+
   }
 
   setPublicacao() {
@@ -47,38 +47,35 @@ export class PublicacaoComponent implements OnInit {
     this.publicacao = new Publicacao();
     this.selected.setValue(1);
   }
-
-  getById(id: number){
-    this.publicacaoService.getById(id)
-    .then(resp => {
-      if(resp != null || resp != []){
-        resp[0].dt_publicacao = this.apoioService.stringParaData(resp[0].dt_publicacao );
-        this.publicacao = resp[0];
-        console.log(this.publicacao);
-        this.selected.setValue(1);
-      }
-    })
-    .catch(resp => {
-      console.log(resp);
-    });
+  
+  getById(id: number) {
+    // this.publicacaoService.getById(id)
+    // .then(resp => {
+    //   if(resp != null || resp != []){
+    //     resp[0].dt_publicacao = this.apoioService.stringParaData(resp[0].dt_publicacao );
+    //     this.publicacao = resp[0];
+    //     console.log(this.publicacao);
+    //     this.selected.setValue(1);
+    //   }
+    // })
+    // .catch(resp => {
+    //   console.log(resp);
+    // });
   }
 
   getAll() {
     this.displaySpinner = true;
-    this.publicacoes = [];
-    this.publicacaoService.getAll()
-      .then(response => {
-        if (response != null) {
-          this.publicacoes = response;
-        }
-        this.displaySpinner = false;
+    let publicacoes: any[] = [];
+    this.db.collection('publicacao').get()
+      .subscribe((snapshot) => {
+        snapshot.forEach((doc) => {
+          let data = {
+            'id': doc.id,
+            'data': doc.data()
+          }
+          publicacoes.push(data);
+        });
       })
-      .catch(error => {
-        console.log(error);
-        this.toastyService.showError("Erro ao buscar pessoa");
-        this.displaySpinner = false;
-      });
+    this.displaySpinner = false;
   }
-
- 
 }

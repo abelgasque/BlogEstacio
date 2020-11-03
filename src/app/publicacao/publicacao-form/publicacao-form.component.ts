@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { PessoaService } from 'src/app/pessoa/pessoa.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 import { ApoioService } from 'src/app/util/apoio.service';
 import { Publicacao } from 'src/app/util/model';
-import { PublicacaoService } from '../publicacao.service';
 
 @Component({
   selector: 'app-publicacao-form',
@@ -31,75 +29,100 @@ export class PublicacaoFormComponent implements OnInit {
   ]
   constructor(
     public apoio: ApoioService,
-    private pessoaService: PessoaService,
-    private publicacaoService: PublicacaoService,
-    private toastyService: ToastyService
+    private db: AngularFirestore,
+    private toasty: ToastyService
   ) { }
 
   ngOnInit(): void {
-    this.getAllPessoas();
+    //this.getAllPessoas();
   }
 
-  getImg(){
+  getImg() {
 
   }
 
-  gerenciarPersistencia(f: NgForm){
-    if(this.publicacao.id_publicacao>0){
-      this.atualizar();
-    }else{
-      this.inserir();
-    }
-    f.resetForm();
+  async create() {
+    return this.db.collection("publicacao").add(Object.assign({}, this.publicacao))
+      .then((resp) => {
+        console.log(resp);
+        this.retornoPersistencia.emit(true);
+        this.toasty.showSuccess("Publicação inserida");
+      })
+      .catch(resp => {
+        console.log(resp);
+        this.retornoPersistencia.emit(false);
+        this.toasty.showError("Erro ao criar!");
+      });
   }
 
-  inserir(){
-    console.log(this.publicacao.descricao)
-    this.publicacaoService.incluir(this.publicacao)
-    .then(resp=>{
-      this.retornoPersistencia.emit(true);
-      this.publicacao = new Publicacao();
-      this.toastyService.showSuccess("Publicação inserida com sucesso!");
-    })
-    .catch(resp=>{
-      console.log(resp);
-      this.retornoPersistencia.emit(false);
-      this.toastyService.showError("Erro ao inserir publicação");
-    });
+  async update() {
+    return this.db.collection("publicacao").doc("id").set(Object.assign({}, this.publicacao))
+      .then((resp) => {
+        console.log(resp);
+        this.toasty.showSuccess("Publicação inserida");
+      })
+      .catch(resp => {
+        console.log(resp);
+        this.toasty.showError("Erro ao criar!");
+      });
   }
 
-  atualizar(){
-    this.publicacaoService.alterar(this.publicacao.id_publicacao, this.publicacao)
-    .then(resp=>{
-      this.retornoPersistencia.emit(true);
-      this.publicacao = new Publicacao();
-      this.toastyService.showSuccess("Publicação atualizada com sucesso!");
-    })
-    .catch(resp=>{
-      console.log(resp);
-      this.retornoPersistencia.emit(false);
-      this.toastyService.showError("Erro ao atualizar publicação!");
-    });
+  gerenciarPersistencia() {
+    //   if(this.publicacao.id_publicacao>0){
+    //     this.atualizar();
+    //   }else{
+    //     this.inserir();
+    //   }
+    //   f.resetForm();
   }
 
-  getAllPessoas(){
-    this.pessoas = [];
-    this.pessoaService.getAll()
-    .then(resp =>{
-      if(resp != []){
-        let lista: any[] = [];
-        for(let i = 0; i<resp.length;i++){
-          let dado = {
-            label:resp[i].nome,
-            value: resp[i].id_pessoa
-          }
-          lista.push(dado);
-        }
-        this.pessoas = lista;
-      }
-    })
-    .catch(resp =>{
-      console.log(resp);
-    });
-  }
+  // inserir(){
+  //   console.log(this.publicacao.descricao)
+  //   this.publicacaoService.incluir(this.publicacao)
+  //   .then(resp=>{
+  //     this.retornoPersistencia.emit(true);
+  //     this.publicacao = new Publicacao();
+  //     this.toastyService.showSuccess("Publicação inserida com sucesso!");
+  //   })
+  //   .catch(resp=>{
+  //     console.log(resp);
+  //     this.retornoPersistencia.emit(false);
+  //     this.toastyService.showError("Erro ao inserir publicação");
+  //   });
+  // }
+
+  // atualizar(){
+  //   this.publicacaoService.alterar(this.publicacao.id_publicacao, this.publicacao)
+  //   .then(resp=>{
+  //     this.retornoPersistencia.emit(true);
+  //     this.publicacao = new Publicacao();
+  //     this.toastyService.showSuccess("Publicação atualizada com sucesso!");
+  //   })
+  //   .catch(resp=>{
+  //     console.log(resp);
+  //     this.retornoPersistencia.emit(false);
+  //     this.toastyService.showError("Erro ao atualizar publicação!");
+  //   });
+  // }
+
+  // getAllPessoas(){
+  //   this.pessoas = [];
+  //   this.pessoaService.getAll()
+  //   .then(resp =>{
+  //     if(resp != []){
+  //       let lista: any[] = [];
+  //       for(let i = 0; i<resp.length;i++){
+  //         let dado = {
+  //           label:resp[i].nome,
+  //           value: resp[i].id_pessoa
+  //         }
+  //         lista.push(dado);
+  //       }
+  //       this.pessoas = lista;
+  //     }
+  //   })
+  //   .catch(resp =>{
+  //     console.log(resp);
+  //   });
+  // }
 }

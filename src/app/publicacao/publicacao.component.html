@@ -25,12 +25,12 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr class="p-selectable-row" style="text-align: center;">
-                    <td>{{rowData.nome}}</td>
-                    <td>{{rowData.titulo}}</td>
-                    <td>{{apoioService.formatarDataStringPtBr(rowData.dt_publicacao)}}</td>
-                    <td>{{rowData.tipo_publicacao}}</td>
-                    <td [style.color]="rowData.situacao_publicacao === 'ATIVO' ? 'green' : 'red'">
-                        {{rowData.situacao_publicacao}}
+                    <td>{{rowData.data.nome}}</td>
+                    <td>{{rowData.data.titulo}}</td>
+                    <td>{{apoioService.formatarDataStringPtBr(rowData.data.dt_publicacao)}}</td>
+                    <td>{{rowData.data.tipo_publicacao}}</td>
+                    <td [style.color]="rowData.data.situacao_publicacao === 'ATIVO' ? 'green' : 'red'">
+                        {{rowData.data.situacao_publicacao}}
                     </td>
                     <td>
                         <button pButton pRipple type="button" class="p-button-rounded p-button-outlined"

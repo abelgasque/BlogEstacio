@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import AOS from 'aos';
-import { PublicacaoService } from 'src/app/publicacao/publicacao.service';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 
 @Component({
@@ -14,7 +13,6 @@ export class HomeComponent implements OnInit {
   publicacoes: any[] = [];
 
   constructor(
-    private publicacaoService: PublicacaoService,
     private toastyService: ToastyService
   ) { }
 
@@ -24,19 +22,19 @@ export class HomeComponent implements OnInit {
   }
 
   getAll(){
-    this.displaySpinner = true;
-    this.publicacoes = [];
-    this.publicacaoService.getAll()
-    .then(response => {
-      if(response != null){
-        this.publicacoes = response;
-      }
-      this.displaySpinner = false;
-    })
-    .catch(error =>{
-      console.log(error);
-      this.toastyService.showError("Erro ao buscar pessoa");
-      this.displaySpinner = false;
-    });
+    // this.displaySpinner = true;
+    // this.publicacoes = [];
+    // this.publicacaoService.getAll()
+    // .then(response => {
+    //   if(response != null){
+    //     this.publicacoes = response;
+    //   }
+    //   this.displaySpinner = false;
+    // })
+    // .catch(error =>{
+    //   console.log(error);
+    //   this.toastyService.showError("Erro ao buscar pessoa");
+    //   this.displaySpinner = false;
+    // });
   }
 }

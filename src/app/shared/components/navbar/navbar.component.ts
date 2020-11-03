@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/seguranca/auth.service';
 import { ApoioService } from 'src/app/util/apoio.service';
 import { Pessoa } from 'src/app/util/model';
 import { ToastyService } from '../toasty/toasty.service';
+import firebase from 'firebase/app';
 
 export class CategoriaDTO {
   categoria: any;
@@ -53,15 +54,18 @@ export class NavbarComponent implements OnInit {
     let pessoa = JSON.parse(localStorage.getItem('user'));
     if (pessoa != null) {
       this.pessoa = pessoa;
-      console.log(this.pessoa);
     }
     this.isAdmin();
+  }
+
+  login() {
+    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    this.setPessoa();
   }
 
   loggout() {
     this.auth.signOut();
     this.setPessoa();
-    this.router.navigate(['/seguranca', 'login']);
     this.toastyService.showSuccess("Loggout efetuado com sucesso!");
   }
   

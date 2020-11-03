@@ -22,7 +22,6 @@ import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { SharedModule } from '../shared/shared.module';
-import { PublicacaoService } from './publicacao.service'
 
 @NgModule({
   declarations: [
@@ -51,8 +50,6 @@ import { PublicacaoService } from './publicacao.service'
 
     SharedModule
   ],
-  providers: [
-    PublicacaoService
-  ]
+  providers: []
 })
 export class PublicacaoModule { }

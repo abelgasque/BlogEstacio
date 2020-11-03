@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
+import { ApoioService } from 'src/app/util/apoio.service';
 import { Pessoa } from 'src/app/util/model';
 import { PessoaService } from '../pessoa.service';
 
@@ -33,80 +35,84 @@ export class PessoaFormComponent implements OnInit {
     { label: 'Inativo', value: 'INATIVO' }
   ];
   enderecos: any[] = [];
-  images = [
-    { title: 'foto-usuario-001.jpg' },
-    { title: 'foto-usuario-002.jpg' },
-    { title: 'foto-usuario-003.jpg' },
-    { title: 'foto-usuario-004.jpg' },
-    { title: 'foto-usuario-005.jpg' },
-    { title: 'foto-usuario-006.jpg' },
-    { title: 'foto-usuario-007.jpg' },
-    { title: 'foto-usuario-008.jpg' },
-    { title: 'foto-usuario-009.jpg' },
-    { title: 'foto-usuario-010.jpg' },
-  ];
   displayImages: boolean = false;
+  displaySpinner: boolean = false;
   imagemSelecionada: any;
   pathImgPessoaPerfil = "./../../../assets/img/pessoas_perfil/";
 
   constructor(
     private pessoaService: PessoaService,
-    private toastyService: ToastyService
+    private toastyService: ToastyService,
+    private db: AngularFirestore,
+    private apoioService: ApoioService
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+    console.log(this.pessoa.id_pessoa);
+  }
 
   cancelar() {
     this.retornoPersistencia.emit(false);
   }
 
-  gerenciarPersistencia(f: NgForm) {
-    if (this.pessoa.id_pessoa > 0) {
-      this.alterar();
+  gerenciarPersistencia() {
+    if (this.pessoa.id_pessoa == "") {
+      this.create();
     } else {
-      this.incluir();
+      this.update();
     }
   }
 
-  getImg() {
-    this.displayImages = true;
-  }
-
-  setImg() {
-    this.displayImages = false;
-    this.pessoa.img_pessoa = this.imagemSelecionada.title;
-    this.displayForm.emit(true);
-  }
-
-  incluir() {
-    this.pessoa.img_pessoa = "foto-usuario-010.jpg";
-    this.pessoa.img_fundo = "foto-usuario-010.jpg";
-    this.pessoaService.incluir(this.pessoa)
-      .then(response => {
+  async create() {
+    return this.db.collection("pessoa").add(Object.assign({}, this.pessoa))
+      .then((resp) => {
         this.retornoPersistencia.emit(true);
-        this.toastyService.showSuccess("Pessoa adicionada com sucesso!");
+        this.toastyService.showSuccess("Publicação inserida");
       })
-      .catch(response => {
+      .catch(resp => {
         this.retornoPersistencia.emit(false);
-        console.log(response);
-        this.toastyService.showError("Erro ao adicionar pessoa!");
+        this.toastyService.showError("Erro ao criar!");
       });
   }
 
-  alterar() {
-    this.pessoaService.alterar(this.pessoa.id_pessoa, this.pessoa)
-      .then(response => {
+  async update() {
+    return this.db.collection("pessoa").doc(this.pessoa.id_pessoa).set(Object.assign({}, this.pessoa))
+      .then((resp) => {
         this.retornoPersistencia.emit(true);
-        this.toastyService.showSuccess("Pessoa alterada com sucesso!");
+        this.toastyService.showSuccess("Atualizado com sucesso");
       })
-      .catch(response => {
+      .catch(resp => {
         this.retornoPersistencia.emit(false);
-        console.log(response);
-        this.toastyService.showError("Erro ao alterar pessoa!");
+        this.toastyService.showError("Erro ao atualizar!");
       });
   }
 
   getEnderecoPorCep(cep: string) {
-
+    this.displaySpinner = true;
+    this.apoioService.getWebServiceCorreioBuscarPorCep(cep)
+      .then(response => {
+        console.log(response)
+        if (response != null) {
+          if (response?.erro == true) {
+            this.pessoa.uf = "";
+            this.pessoa.cidade = "";
+            this.pessoa.bairro = "";
+            this.pessoa.logradouro = "";
+            this.toastyService.showWarn("CEP inválido!");
+          } else {
+            this.pessoa.uf = response.uf;
+            this.pessoa.cidade = response.localidade;
+            this.pessoa.bairro = response.bairro;
+            this.pessoa.logradouro = response.logradouro;
+          }
+        }
+        this.displaySpinner = false;
+      })
+      .catch(erro => {
+        console.log(erro);
+        this.displaySpinner = false;
+        this.toastyService.showError("Erro ao buscar cep!");
+      });
   }
 }

@@ -1,6 +1,6 @@
 export class Pessoa{
-    id_pessoa: number = 0;
-    img_pessoa: string = "foto-usuario-010.jpg";
+    id_pessoa: string = "";
+    img_pessoa: string = "";
     img_fundo: string;
     nome: string;
     sobrenome: string;
@@ -22,12 +22,12 @@ export class Pessoa{
 }
 
 export class Publicacao{
-    id_publicacao: number = 0;
+    id_publicacao: string = undefined;
     img_publicacao: string = "publicacao_001.jpg";
     titulo: string;
     descricao: string;
     tipo_publicacao: string;
-    dt_publicacao: Date = new Date();
+    dt_publicacao: string;
     situacao_publicacao: string = "ATIVO";
     fk_pessoa: string;
 }

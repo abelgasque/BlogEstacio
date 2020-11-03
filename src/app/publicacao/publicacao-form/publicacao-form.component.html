@@ -1,5 +1,5 @@
 <div class="p-fluid">
-    <form class="row col-12" #f="ngForm" autocomplete="off" (ngSubmit)="gerenciarPersistencia(f)">
+    <form class="row col-12" #f="ngForm" autocomplete="off" (ngSubmit)="create()">
         <div class="col-12">
             <label>Titulo</label>
             <input type="text" name="titulo" [(ngModel)]="publicacao.titulo" required maxlength="150" pInputText
@@ -24,7 +24,7 @@
         <div class="col-6 col-md-4">
             <label>Pessoa</label>
             <p-dropdown name="fk_pessoa" [options]="pessoas" appendTo="body" [(ngModel)]="publicacao.fk_pessoa"
-                appendTo="body" [autoDisplayFirst]="false" [filter]="true" required>
+                appendTo="body" [autoDisplayFirst]="false" [filter]="true">
             </p-dropdown>
             <small class="obrigatorio">Campo obrigatorio</small>
         </div>
@@ -41,7 +41,7 @@
             <small class="obrigatorio">Campo obrigatorio</small>
         </div>
         <button class="col-6 col-md-2 p-button-outlined" type="submit"
-            [label]="publicacao.id_publicacao == 0 ?'Adicionar':'Edição'" [disabled]="!f.valid" pButton></button>
+            [label]="publicacao.id_publicacao == '' ?'Adicionar':'Edição'" pButton></button>
         <button class="col-6 col-md-2" type="button" [label]="'Cancelar'" (click)="retornoPersistencia.emit(false)"
             pButton></button>
     </form>

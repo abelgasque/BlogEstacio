@@ -18,7 +18,7 @@ export class ApoioService {
     today: 'Hoje',
     clear: 'Limpar'
   };
-  pessoa: any = null;
+  user: any = null;
 
   constructor(private http: HttpClient) { }
 
@@ -26,24 +26,24 @@ export class ApoioService {
     return moment(data).toDate();
   }
 
-  formatarDataStringPtBr(data: string) {
+  formatarDataStringPtBr(data: any) {
+    data = moment(data).toDate()
     return moment(data).format("DD/MM/YYYY");
   }
 
-  setPessoaStorage(pessoa: any) {
-    this.pessoa = JSON.stringify(pessoa);
-    localStorage.setItem("pessoa", this.pessoa);
+  setUserStorage(user: any) {
+    this.user = JSON.stringify(user);
+    localStorage.setItem("user", this.user);
   }
 
-  getPessoaStorage() {
-    let pessoa = localStorage.getItem("pessoa");
-    pessoa = JSON.parse(pessoa);
-    return pessoa;
+  getUserStorage() {
+    let user = localStorage.getItem("user");
+    return JSON.parse(user);
   }
 
-  removePessoaStorage() {
-    this.pessoa = null;
-    localStorage.removeItem("pessoa");
+  removeUserStorage() {
+    this.user = null;
+    localStorage.removeItem("user");
   }
 
   getCalendarPtBr() {

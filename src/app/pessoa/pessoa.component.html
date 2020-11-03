@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <app-toasty></app-toasty>
-<app-spinner [hidden]="!displaySpinner"></app-spinner>
+<app-spinner *ngIf="displaySpinner"></app-spinner>
 <mat-tab-group mat-align-tabs="start" [selectedIndex]="selected.value"
     (selectedIndexChange)="selected.setValue($event)">
     <mat-tab label="Pessoas">
@@ -25,16 +25,16 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData>
                 <tr class="ui-selectable-row" style="text-align: center;">
-                    <td>{{rowData.nome}}</td>
-                    <td>{{rowData.cpf}}</td>
-                    <td>{{rowData.email}}</td>
-                    <td>{{rowData.tipo_pessoa}}</td>
-                    <td [style.color]="rowData.situacao_pessoa === 'ATIVO' ? 'green' : 'red'">
-                        {{rowData.situacao_pessoa}}
+                    <td>{{rowData.data.nome}}</td>
+                    <td>{{rowData.data.cpf}}</td>
+                    <td>{{rowData.data.email}}</td>
+                    <td>{{rowData.data.tipo_pessoa}}</td>
+                    <td [style.color]="rowData.data.situacao_pessoa === 'ATIVO' ? 'green' : 'red'">
+                        {{rowData.data.situacao_pessoa}}
                     </td>
                     <td>
                         <button pButton pRipple type="button" class="p-button-rounded p-button-outlined"
-                            icon="pi pi-pencil" (click)="getPessoa(rowData.id_pessoa)"></button>
+                            icon="pi pi-pencil" (click)="getPessoa(rowData.id)"></button>
                     </td>
                 </tr>
             </ng-template>

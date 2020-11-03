@@ -1,14 +1,14 @@
+<app-spinner *ngIf="displaySpinner"></app-spinner>
 <div class="p-fluid">
-    <form class="col-12" #formPessoa="ngForm" autocomplete="off" (ngSubmit)="gerenciarPersistencia(formPessoa)">
+    <form class="col-12" #formPessoa="ngForm" autocomplete="off" (ngSubmit)="gerenciarPersistencia()">
         <div class="col-12">
             <p-panel header="Foto de perfil">
                 <div class="box">
-                    <img class="img" [src]="pathImgPessoaPerfil+pessoa.img_pessoa">
-                    <button type="button" label="Escolher" (click)="getImg()" pButton></button>
+                    <img *ngIf="pessoa.img_pessoa!=''" class="img" [src]="pessoa.img_pessoa">
                 </div>
             </p-panel>
         </div>
-        <p-panel  class="col-12" header="Dados pessoais">
+        <p-panel class="col-12" header="Dados pessoais">
             <div class="p-grid p-fluid">
                 <div class="col-6 col-md-3">
                     <label>Nome</label>
@@ -53,11 +53,6 @@
                     <p-inputMask mask="(99) 9999-9999" name="telefone" [(ngModel)]="pessoa.telefone"></p-inputMask>
                     <small class="opcional">Campo opcional</small>
                 </div>
-                <div class="col-12 col-md-4">
-                    <label>Senha</label>
-                    <input type="password" pPassword name="senha" [(ngModel)]="pessoa.senha" required maxlength="20">
-                    <small class="obrigatorio">Campo obrigatorio</small>
-                </div>
                 <div class="col-12 col-md-4" [hidden]="!isSituacao">
                     <label>Situação</label>
                     <p-selectButton [options]="situacoes" name="situacao" [(ngModel)]="pessoa.situacao_pessoa" required>
@@ -66,11 +61,12 @@
                 </div>
             </div>
         </p-panel>
-        <p-panel  class="col-12" header="Endereço">
+        <p-panel class="col-12" header="Endereço">
             <div class="p-grid p-fluid">
                 <div class="col-6 col-md-2">
                     <label>CEP</label>
-                    <p-inputMask mask="99999-999" name="cep" [(ngModel)]="pessoa.cep"></p-inputMask>
+                    <p-inputMask mask="99999-999" name="cep" [(ngModel)]="pessoa.cep"
+                    (onBlur)="getEnderecoPorCep(pessoa.cep)"></p-inputMask>
                     <small class="opcional">Campo opcional</small>
                 </div>
                 <div class="col-6 col-md-1">
@@ -105,11 +101,11 @@
                 </div>
             </div>
         </p-panel>
-        <div class="col-12">
+        <div class="row">
             <div class="col-12 col-md-2">
-                <button type="button" class="p-button-outlined" icon="pi pi-check"
-                    (click)="gerenciarPersistencia(formPessoa)" [label]="pessoa.id_pessoa == 0?'Adicionar':'Editar'"
-                    [disabled]="!formPessoa.valid" pButton></button>
+                <button type="submit" class="p-button-outlined" icon="pi pi-check"
+                    [label]="pessoa.id_pessoa == null?'Adicionar':'Editar'" [disabled]="!formPessoa.valid"
+                    pButton></button>
             </div>
             <div class="col-12 col-md-2">
                 <p-button icon="pi pi-times" label="Cancelar" (click)="retornoPersistencia.emit(false)"></p-button>
@@ -117,20 +113,3 @@
         </div>
     </form>
 </div>
-
-
-<p-dialog header="Escolha foto perfil" [(visible)]="displayImages" [modal]="true" [style]="{width: '400px'}">
-    <p-table [value]="images" [responsive]="true" selectionMode="single" [(selection)]="imagemSelecionada"
-        dataKey="title">
-        <ng-template pTemplate="body" let-rowData>
-            <tr [pSelectableRow]="rowData">
-                <img class="selecao_img" [src]="pathImgPessoaPerfil+rowData.title" alt="Foto de perfil do usuario">
-            </tr>
-        </ng-template>
-    </p-table>
-    <p-footer>
-        <button type="button" class="p-button-outlined" icon="pi pi-check" (click)="setImg()" label="Selecionar"
-            pButton></button>
-        <p-button icon="pi pi-times" label="Cancelar" (click)="displayImages=false"></p-button>
-    </p-footer>
-</p-dialog>

@@ -2,13 +2,9 @@
 <mat-toolbar color="primary">
     <a routerLinkActive="active" [routerLink]="['/']">Sistemas 2020.1</a>
     <span mat-button class="example-spacer"></span>
-    <a mat-button routerLinkActive="active" [routerLink]="['/seguranca','login']" *ngIf="this.pessoa==null">
+    <a mat-button (click)="login()" *ngIf="this.pessoa==null">
         <mat-icon>login</mat-icon>
         Login
-    </a>
-    <a mat-button routerLinkActive="active" [routerLink]="['/seguranca','pessoa','incluir']" *ngIf="this.pessoa==null">
-        <mat-icon>people</mat-icon>
-        Inscreva-se
     </a>
     <a mat-button *ngIf="this.pessoa!=null" [matMenuTriggerFor]="menu">
         <img class="img_perfil_pessoal_navbar" [src]="this.pessoa.photoURL">
@@ -23,14 +19,12 @@
         <p class="col-12 people">{{this.pessoa?.email}}</p>
     </div>
     <mat-divider></mat-divider>
-    <a mat-menu-item routerLinkActive="active" [routerLink]="['/pessoa']"
-        *ngIf="isAdministrador">
+    <a mat-menu-item routerLinkActive="active" [routerLink]="['/pessoa']">
         <mat-icon>people</mat-icon>
         <span>Pessoas</span>
     </a>
-    <mat-divider *ngIf="isAdministrador"></mat-divider>
-    <a mat-menu-item routerLinkActive="active" [routerLink]="['/publicacao']"
-        *ngIf="isAdministrador">
+    <mat-divider></mat-divider>
+    <a mat-menu-item routerLinkActive="active" [routerLink]="['/publicacao']">
         <mat-icon>publish</mat-icon>
         <span>Publicações</span>
     </a>
