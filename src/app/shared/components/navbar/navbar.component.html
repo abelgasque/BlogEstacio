@@ -2,7 +2,8 @@
 <mat-toolbar color="primary">
     <a routerLinkActive="active" [routerLink]="['/']">Sistemas 2020.1</a>
     <span mat-button class="example-spacer"></span>
-    <a mat-button (click)="login()" *ngIf="this.pessoa==null">
+    <a mat-button routerLinkActive="active" [routerLink]="['/seguranca', 'login']" 
+    *ngIf="this.pessoa==null">
         <mat-icon>login</mat-icon>
         Login
     </a>

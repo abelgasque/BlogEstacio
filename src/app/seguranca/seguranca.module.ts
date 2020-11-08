@@ -16,11 +16,13 @@ import { InputMaskModule } from 'primeng/inputmask';
 
 import { ApoioService } from './../util/apoio.service';
 import { AuthService } from './auth.service';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     SegurancaPessoaComponent,
-    SegurancaComponent
+    SegurancaComponent,
+    LoginComponent
   ],
   imports: [
     CommonModule,

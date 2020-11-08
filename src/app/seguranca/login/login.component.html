@@ -1,0 +1,53 @@
+<app-spinner [hidden]="!displaySpinner"></app-spinner>
+<div class="body" fxLayout="row" fxLayoutAlign="center center">
+    <div class="box">
+        <div fxLayout="row" fxLayoutAlign="center center">
+            <img class="img" src="../../../assets/img/box-login.png">
+            <span class="login">Login</span>
+        </div>
+        <form class="row p-fluid" #f="ngForm" autocomplete="on" (ngSubmit)="login()">
+            <div class="col-12">
+                <label>E-mail</label>
+                <input pInputText type="text" name="email" [(ngModel)]="usuario.email" minlength="5" maxlength="50"
+                    required>
+            </div>
+            <div class="col-12">
+                <label>Senha</label>
+                <input pInputText type="password" name="senha" [(ngModel)]="usuario.senha" minlength="5" maxlength="50"
+                    required>
+            </div>
+            <div class="col-12">
+                <button pButton type="submit" label="Entrar" [disabled]="!f.valid"></button>
+            </div>
+        </form>
+        <div class="row p-fluid">
+            <div class="col-12 col-md-4">
+                <button pButton type="button" label="Google" (click)="loginGoogle()"></button>
+            </div>
+            <div class="col-12 col-md-4">
+                <button pButton type="button" label="Facebook" (click)="loginFacebook()"></button>
+            </div>
+            <div class="col-12 col-md-4">
+                <button pButton type="button" label="Twitter" (click)="loginTwitter()"></button>
+            </div>
+        </div>
+        <div class="row p-fluid">
+            <div class="col-6">
+                <a mat-button>
+                    Perdeu sua senha?
+                </a>
+            </div>
+            <div class="col-6">
+                <a mat-button [routerLink]="['/seguranca','pessoa', 'adicionar']" routerLinkActive="select">
+                    Cadastrar-se
+                </a>
+            </div>
+        </div>
+
+        <div class="ui-g-12" fxLayoutAlign="center center">
+            <a mat-button [routerLink]="['']" routerLinkActive="active-link">
+                Voltar ao inicio
+            </a>
+        </div>
+    </div>
+</div>

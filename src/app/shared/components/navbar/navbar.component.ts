@@ -32,23 +32,12 @@ export class NavbarComponent implements OnInit {
     private authService: AuthService,
     public apoio: ApoioService,
     private router: Router,
-    private toastyService: ToastyService,
     public auth: AngularFireAuth
-  ) { 
-    this.auth.authState.subscribe(user => {
-      if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-      } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
-      }
-    })
-  }
-
-  ngOnInit(): void {
+  ) {
     this.setPessoa();
   }
+
+  ngOnInit(): void {}
 
   setPessoa() {
     let pessoa = JSON.parse(localStorage.getItem('user'));
@@ -60,15 +49,26 @@ export class NavbarComponent implements OnInit {
 
   login() {
     this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+    this.auth.authState.subscribe(user => {
+      if (user) {
+        this.userData = user;
+        localStorage.setItem('user', JSON.stringify(this.userData));
+      } else {
+        localStorage.setItem('user', null);
+        JSON.parse(localStorage.getItem('user'));
+      }
+    })
     this.setPessoa();
+    this.router.navigate(['']);
   }
 
   loggout() {
     this.auth.signOut();
+    this.apoio.removeUserStorage();
+    this.pessoa = null;
     this.setPessoa();
-    this.toastyService.showSuccess("Loggout efetuado com sucesso!");
   }
-  
+
   isAdmin() {
     if (this.pessoa != null && this.pessoa.tipo_pessoa == "ADMINISTRADOR") {
       this.isAdministrador = true;
