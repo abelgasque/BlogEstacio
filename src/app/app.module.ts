@@ -12,18 +12,14 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { environment } from 'src/environments/environment';
 import { SharedModule } from './shared/shared.module';
 import { DefaultModule } from './default/default.module';
-import { PessoaModule } from './pessoa/pessoa.module';
 import { SegurancaModule } from './seguranca/seguranca.module';
 import { PublicacaoModule } from './publicacao/publicacao.module';
+import { UsuarioModule } from './usuario/usuario.module';
 
 registerLocaleData(localePt);
-// Firebase App (the core Firebase SDK) is always required and must be listed first
-import * as firebase from "firebase/app";
 
-// Add the Firebase products that you want to use
 import "firebase/auth";
 import "firebase/firestore";
 
@@ -53,9 +49,9 @@ const firebaseConfig = {
 
     SharedModule,
     DefaultModule,
-    PessoaModule,
     SegurancaModule,
-    PublicacaoModule
+    PublicacaoModule,
+    UsuarioModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-br' },

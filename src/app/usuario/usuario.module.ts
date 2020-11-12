@@ -15,18 +15,23 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 import { PanelModule } from 'primeng/panel';
 import { SelectButtonModule } from 'primeng/selectbutton';
-import { PasswordModule } from 'primeng/password';
-
-import { PessoaComponent } from './pessoa.component';
-import { PessoaFormComponent } from './pessoa-form/pessoa-form.component';
-import { PessoaService } from './pessoa.service'
 import { SharedModule } from '../shared/shared.module';
 import { DropdownModule } from 'primeng/dropdown';
+import { PasswordModule } from 'primeng/password';
+
+import { UsuarioComponent } from './usuario.component';
+import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
+import { UsuarioGridComponent } from './usuario-grid/usuario-grid.component';
+import { UsuarioPerfilComponent } from './usuario-perfil/usuario-perfil.component';
+
+
 
 @NgModule({
   declarations: [
-    PessoaComponent,
-    PessoaFormComponent
+    UsuarioComponent,
+    UsuarioFormComponent,
+    UsuarioGridComponent,
+    UsuarioPerfilComponent
   ],
   imports: [
     CommonModule,
@@ -50,11 +55,7 @@ import { DropdownModule } from 'primeng/dropdown';
     SharedModule
   ],
   providers: [
-    PessoaService,
     ConfirmationService
-  ],
-  exports: [
-    PessoaFormComponent
   ]
 })
-export class PessoaModule { }
+export class UsuarioModule { }

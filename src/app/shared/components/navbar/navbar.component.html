@@ -2,35 +2,35 @@
 <mat-toolbar color="primary">
     <a routerLinkActive="active" [routerLink]="['/']">Sistemas 2020.1</a>
     <span mat-button class="example-spacer"></span>
-    <a mat-button routerLinkActive="active" [routerLink]="['/seguranca', 'login']" 
-    *ngIf="this.pessoa==null">
+    <a mat-button routerLinkActive="active" [routerLink]="['/seguranca', 'login']" *ngIf="this.auth.user==null">
         <mat-icon>login</mat-icon>
         Login
     </a>
-    <a mat-button *ngIf="this.pessoa!=null" [matMenuTriggerFor]="menu">
-        <img class="img_perfil_pessoal_navbar" [src]="this.pessoa.photoURL">
-        {{this.pessoa?.displayName}}
+    <a mat-button *ngIf="this.auth.user!=null" [matMenuTriggerFor]="menu">
+        <img class="img_perfil_pessoal_navbar" [src]="this.auth.user.photoUrl">
+        {{this.auth.user?.nome}}
     </a>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu" yPosition="above">
-    <div class="row p-fluid header" mat-menu-item routerLinkActive="select" *ngIf="this.pessoa!=null">
-        <img class="col-12 img center" [src]="this.pessoa.photoURL">
-        <h4 class="col-12 people">{{this.pessoa?.displayName}}</h4>
-        <p class="col-12 people">{{this.pessoa?.email}}</p>
+    <div class="row p-fluid header" mat-menu-item *ngIf="this.auth.user!=null" routerLinkActive="select"
+        [routerLink]="['/usuario', 'perfil']">
+        <img class="col-12 img center" [src]="this.auth.user.photoUrl">
+        <h4 class="col-12 people">{{this.auth.user?.nome}}</h4>
+        <p class="col-12 people">{{this.auth.user?.email}}</p>
     </div>
     <mat-divider></mat-divider>
-    <a mat-menu-item routerLinkActive="active" [routerLink]="['/pessoa']">
-        <mat-icon>people</mat-icon>
-        <span>Pessoas</span>
+    <a mat-menu-item routerLinkActive="active" [routerLink]="['/usuario', 'grid']">
+        <mat-icon>peoples</mat-icon>
+        <span>Usuarios</span>
     </a>
     <mat-divider></mat-divider>
     <a mat-menu-item routerLinkActive="active" [routerLink]="['/publicacao']">
         <mat-icon>publish</mat-icon>
         <span>Publicações</span>
     </a>
-    <mat-divider *ngIf="isAdministrador"></mat-divider>
-    <button type="button" mat-menu-item (click)="loggout()">
+    <mat-divider></mat-divider>
+    <button type="button" mat-menu-item (click)="this.auth.loggout()">
         <mat-icon>login</mat-icon>
         <span>Logout</span>
     </button>

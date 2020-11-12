@@ -5,10 +5,8 @@ import { RouterModule } from '@angular/router';
 
 import { FlexLayoutModule } from "@angular/flex-layout";
 
-import { SegurancaPessoaComponent } from './seguranca-pessoa/seguranca-pessoa.component';
 import { SegurancaComponent } from './seguranca.component';
 import { SharedModule } from '../shared/shared.module';
-import { PessoaModule } from '../pessoa/pessoa.module';
 import { MatButtonModule } from '@angular/material/button';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -20,7 +18,6 @@ import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
-    SegurancaPessoaComponent,
     SegurancaComponent,
     LoginComponent
   ],
@@ -36,8 +33,7 @@ import { LoginComponent } from './login/login.component';
     InputTextModule,
     InputMaskModule,
 
-    SharedModule,
-    PessoaModule
+    SharedModule
   ],
   providers: [
     ApoioService,

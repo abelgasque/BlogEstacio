@@ -4,9 +4,9 @@
         <tr style="background-color: grey;">
             <td data-aos="fade-down" data-aos-duration="1000">
                 <mat-card>
-                    <mat-card-header>
+                    <mat-card-header *ngIf="rowData.data.uidGoogle!=null">
                         <img mat-card-avatar class="header-image"
-                            src="../../../../assets/img/pessoas_perfil/{{rowData.img_pessoa}}">
+                            src="../../../../assets/img/pessoas_perfil/{{rowData.data.img_pessoa}}">
                         <mat-card-title>{{rowData.nome}} {{rowData.sobrenome}}</mat-card-title>
                         <mat-card-subtitle>{{rowData.tipo_pessoa}}</mat-card-subtitle>
                     </mat-card-header>
@@ -14,10 +14,10 @@
                         <mat-divider></mat-divider>
                         <div class="row">
                             <div class="col-12 p-fluid">
-                                <mat-card-title>{{rowData.titulo}}</mat-card-title>
-                                <mat-card-subtitle>{{rowData.tipo_publicacao}}</mat-card-subtitle>
+                                <mat-card-title>{{rowData.data.titulo}}</mat-card-title>
+                                <mat-card-subtitle>{{rowData.data.tipo}}</mat-card-subtitle>
                                 <div class="col-12">
-                                    <p>{{rowData.descricao}}</p>
+                                    <p>{{rowData.data.descricao}}</p>
                                 </div>
                             </div>
                         </div>

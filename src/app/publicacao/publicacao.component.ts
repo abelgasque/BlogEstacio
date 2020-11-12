@@ -22,24 +22,24 @@ export class PublicacaoComponent implements OnInit {
     public apoioService: ApoioService,
     private toastyService: ToastyService,
     private db: AngularFirestore
-  ) { 
+  ) { }
+
+  ngOnInit(): void {
     this.getAll();
   }
-
-  ngOnInit(): void {}
 
   retornoPersistenciaForm(event: boolean) {
     if (event) {
       this.getAll();
     }
+    this.titleForm = "Incluir";
     this.selected.setValue(0);
   }
 
-  getPublicacao(id: number) {
+  getPublicacao(id: string) {
     this.publicacao = new Publicacao();
     this.titleForm = "Alterar";
     this.getById(id);
-
   }
 
   setPublicacao() {
@@ -47,35 +47,32 @@ export class PublicacaoComponent implements OnInit {
     this.publicacao = new Publicacao();
     this.selected.setValue(1);
   }
-  
-  getById(id: number) {
-    // this.publicacaoService.getById(id)
-    // .then(resp => {
-    //   if(resp != null || resp != []){
-    //     resp[0].dt_publicacao = this.apoioService.stringParaData(resp[0].dt_publicacao );
-    //     this.publicacao = resp[0];
-    //     console.log(this.publicacao);
-    //     this.selected.setValue(1);
-    //   }
-    // })
-    // .catch(resp => {
-    //   console.log(resp);
-    // });
+
+  getById(id: string) {
+    this.displaySpinner = true;
+    this.db.collection('publicacao').doc(id).valueChanges().subscribe((resp: any) => {
+      if (resp?.id == null) {
+        resp.id = id;
+      }
+      this.publicacao = this.apoioService.montarObjetoPublicacao(resp);
+      this.selected.setValue(1);
+    })
+    this.displaySpinner = false
   }
 
   getAll() {
     this.displaySpinner = true;
     let publicacoes: any[] = [];
-    this.db.collection('publicacao').get()
-      .subscribe((snapshot) => {
-        snapshot.forEach((doc) => {
-          let data = {
-            'id': doc.id,
-            'data': doc.data()
-          }
-          publicacoes.push(data);
-        });
-      })
+    this.db.collection('publicacao').get().subscribe((snapshot) => {
+      snapshot.forEach((doc) => {
+        let data = {
+          'id': doc.id,
+          'data': doc.data()
+        }
+        publicacoes.push(data);
+      });
+    })
+    this.publicacoes = publicacoes;
     this.displaySpinner = false;
   }
 }

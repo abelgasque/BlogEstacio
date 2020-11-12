@@ -16,7 +16,6 @@ export class PublicacaoFormComponent implements OnInit {
   @Input() isTipo: boolean = false;
   @Output() retornoPersistencia = new EventEmitter<boolean>();
   @Output() displayForm = new EventEmitter<boolean>();
-  pathImg: string = "../../../assets/img/publicacoes/";
   pessoas: any[] = [];
   tipos = [
     { label: 'Selecione', value: null },
@@ -27,26 +26,20 @@ export class PublicacaoFormComponent implements OnInit {
     { label: 'Ativo', value: 'ATIVO' },
     { label: 'Inativo', value: 'INATIVO' }
   ]
+
   constructor(
     public apoio: ApoioService,
     private db: AngularFirestore,
     private toasty: ToastyService
   ) { }
 
-  ngOnInit(): void {
-    //this.getAllPessoas();
-  }
+  ngOnInit(): void {}
 
-  getImg() {
-
-  }
-
-  async create() {
-    return this.db.collection("publicacao").add(Object.assign({}, this.publicacao))
+  create() {
+    this.db.collection("publicacao").add(Object.assign({}, this.publicacao))
       .then((resp) => {
-        console.log(resp);
         this.retornoPersistencia.emit(true);
-        this.toasty.showSuccess("Publicação inserida");
+        this.toasty.showSuccess("Publicação criada");
       })
       .catch(resp => {
         console.log(resp);
@@ -55,55 +48,26 @@ export class PublicacaoFormComponent implements OnInit {
       });
   }
 
-  async update() {
-    return this.db.collection("publicacao").doc("id").set(Object.assign({}, this.publicacao))
-      .then((resp) => {
-        console.log(resp);
-        this.toasty.showSuccess("Publicação inserida");
+  update() {
+    this.db.collection("publicacao").doc(this.publicacao.id).update(Object.assign({}, this.publicacao))
+      .then((resp: any) => {
+        this.toasty.showSuccess("Publicação atualizada");
+        this.retornoPersistencia.emit(true);
       })
       .catch(resp => {
         console.log(resp);
-        this.toasty.showError("Erro ao criar!");
+        this.retornoPersistencia.emit(false);
+        this.toasty.showError("Erro ao atualizada!");
       });
   }
 
   gerenciarPersistencia() {
-    //   if(this.publicacao.id_publicacao>0){
-    //     this.atualizar();
-    //   }else{
-    //     this.inserir();
-    //   }
-    //   f.resetForm();
+    if (this.publicacao.id == "") {
+      this.create();
+    } else {
+      this.update();
+    }
   }
-
-  // inserir(){
-  //   console.log(this.publicacao.descricao)
-  //   this.publicacaoService.incluir(this.publicacao)
-  //   .then(resp=>{
-  //     this.retornoPersistencia.emit(true);
-  //     this.publicacao = new Publicacao();
-  //     this.toastyService.showSuccess("Publicação inserida com sucesso!");
-  //   })
-  //   .catch(resp=>{
-  //     console.log(resp);
-  //     this.retornoPersistencia.emit(false);
-  //     this.toastyService.showError("Erro ao inserir publicação");
-  //   });
-  // }
-
-  // atualizar(){
-  //   this.publicacaoService.alterar(this.publicacao.id_publicacao, this.publicacao)
-  //   .then(resp=>{
-  //     this.retornoPersistencia.emit(true);
-  //     this.publicacao = new Publicacao();
-  //     this.toastyService.showSuccess("Publicação atualizada com sucesso!");
-  //   })
-  //   .catch(resp=>{
-  //     console.log(resp);
-  //     this.retornoPersistencia.emit(false);
-  //     this.toastyService.showError("Erro ao atualizar publicação!");
-  //   });
-  // }
 
   // getAllPessoas(){
   //   this.pessoas = [];

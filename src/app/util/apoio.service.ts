@@ -1,12 +1,13 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
+import { Publicacao } from './model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApoioService {
-  
+
   language: any = {
     firstDayOfWeek: 0,
     dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
@@ -22,7 +23,25 @@ export class ApoioService {
 
   constructor(private http: HttpClient) { }
 
-  stringParaData(data: string){
+  montarObjetoPublicacao(retorno: any) {
+    let publicacao = new Publicacao();
+    publicacao.titulo = retorno.titulo;
+    publicacao.tipo = retorno.tipo;
+    publicacao.situacao = retorno.situacao;
+    publicacao.img = retorno.img;
+    publicacao.id = retorno.id;
+    publicacao.fk_pessoa = retorno.fk_pessoa;
+    publicacao.dt = retorno.dt.toDate();
+    publicacao.descricao = retorno.descricao;
+    return publicacao;
+  }
+
+  formatarTimestampToDate(data: any) {
+    data = data.toDate();
+    return moment(data).format("DD/MM/YYYY");
+  }
+
+  stringParaData(data: string) {
     return moment(data).toDate();
   }
 
@@ -31,7 +50,7 @@ export class ApoioService {
     return moment(data).format("DD/MM/YYYY");
   }
 
-  setUserStorage(user: any) {
+  getUserAuthStorage(user: any) {
     this.user = JSON.stringify(user);
     localStorage.setItem("user", this.user);
   }

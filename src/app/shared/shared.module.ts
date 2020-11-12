@@ -29,6 +29,7 @@ import { ToastyService } from './components/toasty/toasty.service';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { TabelaPublicacoesDefaultComponent } from './components/tabela-publicacoes-default/tabela-publicacoes-default.component';
+import { AuthService } from '../seguranca/auth.service';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { TabelaPublicacoesDefaultComponent } from './components/tabela-publicaco
   ],
   providers: [
     ToastyService,
-    MessageService
+    MessageService,
+    AuthService
   ]
 })
 export class SharedModule { }

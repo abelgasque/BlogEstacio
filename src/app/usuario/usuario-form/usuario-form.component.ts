@@ -3,17 +3,16 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 import { ApoioService } from 'src/app/util/apoio.service';
-import { Pessoa } from 'src/app/util/model';
-import { PessoaService } from '../pessoa.service';
+import { Pessoa, Usuario } from 'src/app/util/model';
 
 @Component({
-  selector: 'app-pessoa-form',
-  templateUrl: './pessoa-form.component.html',
-  styleUrls: ['./pessoa-form.component.css']
+  selector: 'app-usuario-form',
+  templateUrl: './usuario-form.component.html',
+  styleUrls: ['./usuario-form.component.css']
 })
-export class PessoaFormComponent implements OnInit {
+export class UsuarioFormComponent implements OnInit {
 
-  @Input() pessoa: Pessoa;
+  @Input() usuario: Usuario;
   @Input() isSituacao: boolean = false;
   @Input() isTipo: boolean = false;
   @Output() retornoPersistencia = new EventEmitter<boolean>();
@@ -41,50 +40,48 @@ export class PessoaFormComponent implements OnInit {
   pathImgPessoaPerfil = "./../../../assets/img/pessoas_perfil/";
 
   constructor(
-    private pessoaService: PessoaService,
-    private toastyService: ToastyService,
+    private toasty: ToastyService,
     private db: AngularFirestore,
     private apoioService: ApoioService
   ) { }
 
-  ngOnInit(): void {
-
-    console.log(this.pessoa.id_pessoa);
-  }
+  ngOnInit(): void { }
 
   cancelar() {
     this.retornoPersistencia.emit(false);
   }
 
   gerenciarPersistencia() {
-    if (this.pessoa.id_pessoa == "") {
+    if (this.usuario.id == "") {
       this.create();
     } else {
       this.update();
     }
   }
 
-  async create() {
-    return this.db.collection("pessoa").add(Object.assign({}, this.pessoa))
+  create() {
+    this.db.collection("user").add(Object.assign({}, this.usuario))
       .then((resp) => {
         this.retornoPersistencia.emit(true);
-        this.toastyService.showSuccess("Publicação inserida");
+        this.toasty.showSuccess("Usuario criada");
       })
       .catch(resp => {
+        console.log(resp);
         this.retornoPersistencia.emit(false);
-        this.toastyService.showError("Erro ao criar!");
+        this.toasty.showError("Erro ao criar!");
       });
   }
 
-  async update() {
-    return this.db.collection("pessoa").doc(this.pessoa.id_pessoa).set(Object.assign({}, this.pessoa))
-      .then((resp) => {
+  update() {
+    this.db.collection("user").doc(this.usuario.id).update(Object.assign({}, this.usuario))
+      .then((resp: any) => {
+        this.toasty.showSuccess("Usuario atualizada");
         this.retornoPersistencia.emit(true);
-        this.toastyService.showSuccess("Atualizado com sucesso");
       })
       .catch(resp => {
+        console.log(resp);
         this.retornoPersistencia.emit(false);
-        this.toastyService.showError("Erro ao atualizar!");
+        this.toasty.showError("Erro ao atualizada!");
       });
   }
 
@@ -92,19 +89,18 @@ export class PessoaFormComponent implements OnInit {
     this.displaySpinner = true;
     this.apoioService.getWebServiceCorreioBuscarPorCep(cep)
       .then(response => {
-        console.log(response)
         if (response != null) {
           if (response?.erro == true) {
-            this.pessoa.uf = "";
-            this.pessoa.cidade = "";
-            this.pessoa.bairro = "";
-            this.pessoa.logradouro = "";
-            this.toastyService.showWarn("CEP inválido!");
+            this.usuario.uf = "";
+            this.usuario.cidade = "";
+            this.usuario.bairro = "";
+            this.usuario.logradouro = "";
+            this.toasty.showWarn("CEP inexistente!");
           } else {
-            this.pessoa.uf = response.uf;
-            this.pessoa.cidade = response.localidade;
-            this.pessoa.bairro = response.bairro;
-            this.pessoa.logradouro = response.logradouro;
+            this.usuario.uf = response.uf;
+            this.usuario.cidade = response.localidade;
+            this.usuario.bairro = response.bairro;
+            this.usuario.logradouro = response.logradouro;
           }
         }
         this.displaySpinner = false;
@@ -112,7 +108,8 @@ export class PessoaFormComponent implements OnInit {
       .catch(erro => {
         console.log(erro);
         this.displaySpinner = false;
-        this.toastyService.showError("Erro ao buscar cep!");
+        this.toasty.showError("Erro ao buscar cep!");
       });
   }
+
 }

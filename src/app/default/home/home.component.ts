@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import AOS from 'aos';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 
@@ -13,28 +14,28 @@ export class HomeComponent implements OnInit {
   publicacoes: any[] = [];
 
   constructor(
-    private toastyService: ToastyService
+    private toastyService: ToastyService,
+    private db: AngularFirestore
   ) { }
 
   ngOnInit(): void {
     AOS.init();
-    // this.getAll();
+    this.getAll();
   }
 
-  getAll(){
-    // this.displaySpinner = true;
-    // this.publicacoes = [];
-    // this.publicacaoService.getAll()
-    // .then(response => {
-    //   if(response != null){
-    //     this.publicacoes = response;
-    //   }
-    //   this.displaySpinner = false;
-    // })
-    // .catch(error =>{
-    //   console.log(error);
-    //   this.toastyService.showError("Erro ao buscar pessoa");
-    //   this.displaySpinner = false;
-    // });
+  getAll() {
+    this.displaySpinner = true;
+    let publicacoes: any[] = [];
+    this.db.collection('publicacao').get().subscribe((snapshot) => {
+      snapshot.forEach((doc) => {
+        let data = {
+          'id': doc.id,
+          'data': doc.data()
+        }
+        publicacoes.push(data);
+      });
+    })
+    this.publicacoes = publicacoes;
+    this.displaySpinner = false;
   }
 }

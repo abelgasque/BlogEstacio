@@ -1,16 +1,14 @@
-<app-navbar></app-navbar>
-<app-toasty></app-toasty>
 <app-spinner *ngIf="displaySpinner"></app-spinner>
 <mat-tab-group mat-align-tabs="start" [selectedIndex]="selected.value"
     (selectedIndexChange)="selected.setValue($event)">
-    <mat-tab label="Pessoas">
-        <p-table [value]="pessoas" [responsive]="true" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    <mat-tab label="Usuários">
+        <p-table [value]="usuarios" [responsive]="true" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
             currentPageReportTemplate="Registro {first} até {last} com total de {totalRecords} registros">
             <ng-template pTemplate="caption">
                 <div class="ui-helper-clearfix" style="text-align: center">
-                    Lista de pessoas
+                    Lista de usuários
                     <button type="button" class="p-button-outlined" iconPos="left" style="float:right" icon="pi pi-plus"
-                        label="Adicionar" (click)="novaPessoa()" pButton></button>
+                        label="Adicionar" (click)="setUsuario()" pButton></button>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -28,13 +26,13 @@
                     <td>{{rowData.data.nome}}</td>
                     <td>{{rowData.data.cpf}}</td>
                     <td>{{rowData.data.email}}</td>
-                    <td>{{rowData.data.tipo_pessoa}}</td>
-                    <td [style.color]="rowData.data.situacao_pessoa === 'ATIVO' ? 'green' : 'red'">
-                        {{rowData.data.situacao_pessoa}}
+                    <td>{{rowData.data.tipo}}</td>
+                    <td [style.color]="rowData.data.situacao === 'ATIVO' ? 'green' : 'red'">
+                        {{rowData.data.situacao}}
                     </td>
                     <td>
                         <button pButton pRipple type="button" class="p-button-rounded p-button-outlined"
-                            icon="pi pi-pencil" (click)="getPessoa(rowData.id)"></button>
+                            icon="pi pi-pencil" (click)="getUsuario(rowData.id)"></button>
                     </td>
                 </tr>
             </ng-template>
@@ -52,8 +50,8 @@
         </p-table>
     </mat-tab>
     <mat-tab [label]="titleDisplay">
-        <app-pessoa-form [pessoa]="pessoa" (retornoPersistencia)="getRetornoFormPessoa($event)" [isSituacao]="true"
-            [isTipo]="true"></app-pessoa-form>
+        <app-usuario-form [usuario]="usuario" (retornoPersistencia)="getRetornoFormPessoa($event)" [isSituacao]="true"
+        [isTipo]="true"></app-usuario-form>
     </mat-tab>
 </mat-tab-group>
 

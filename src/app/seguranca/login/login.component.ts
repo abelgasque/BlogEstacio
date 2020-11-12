@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage } from '@angular/fire/storage';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 import { ApoioService } from 'src/app/util/apoio.service';
+import { AuthService } from '../auth.service';
 
 export class Usuario {
   email: string;
@@ -22,69 +25,13 @@ export class LoginComponent implements OnInit {
   userData: any;
 
   constructor(
-    public apoio: ApoioService,
-    private router: Router,
-    private toastyService: ToastyService,
-    private auth: AngularFireAuth) { }
+    public auth: AuthService
+  ) { }
 
   ngOnInit(): void {
   }
 
-
   login() {
-
+    this.auth.login(this.usuario.email, this.usuario.senha);
   }
-
-  loginGoogle() {
-    firebase.auth().languageCode = 'pt_BR';
-    this.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider())
-      .then(resp => {
-        this.setPessoa();
-        this.toastyService.showSuccess("Login efetuado com sucesso");
-      })
-      .catch(resp => {
-        console.log(resp);
-        this.toastyService.showError("Erro ao fazer login pelo Google");
-      });
-  }
-
-  loginFacebook() {
-    firebase.auth().languageCode = 'pt_BR';
-    this.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider())
-      .then(resp => {
-        this.setPessoa();
-        this.toastyService.showSuccess("Login efetuado com sucesso");
-      })
-      .catch(resp => {
-        console.log(resp);
-        this.toastyService.showError("Erro ao fazer login pelo Facebook");
-      });
-  }
-
-  loginTwitter() {
-    firebase.auth().languageCode = 'pt_BR';
-    this.auth.signInWithPopup(new firebase.auth.TwitterAuthProvider())
-      .then(resp => {
-        this.setPessoa();
-        this.toastyService.showSuccess("Login efetuado com sucesso");
-      })
-      .catch(resp => {
-        console.log(resp);
-        this.toastyService.showError("Erro ao fazer login pelo Twitter");
-      });
-  }
-
-  setPessoa() {
-    this.auth.authState.subscribe(user => {
-      if (user) {
-        this.userData = user;
-        localStorage.setItem('user', JSON.stringify(this.userData));
-      } else {
-        localStorage.setItem('user', null);
-        JSON.parse(localStorage.getItem('user'));
-      }
-    })
-    this.router.navigate(['']);
-  }
-
 }

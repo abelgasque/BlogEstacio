@@ -27,14 +27,14 @@
                 <tr class="p-selectable-row" style="text-align: center;">
                     <td>{{rowData.data.nome}}</td>
                     <td>{{rowData.data.titulo}}</td>
-                    <td>{{apoioService.formatarDataStringPtBr(rowData.data.dt_publicacao)}}</td>
-                    <td>{{rowData.data.tipo_publicacao}}</td>
-                    <td [style.color]="rowData.data.situacao_publicacao === 'ATIVO' ? 'green' : 'red'">
-                        {{rowData.data.situacao_publicacao}}
+                    <td>{{this.apoioService.formatarTimestampToDate(rowData.data.dt)}}</td>
+                    <td>{{rowData.data.tipo}}</td>
+                    <td [style.color]="rowData.data.situacao === 'ATIVO' ? 'green' : 'red'">
+                        {{rowData.data.situacao}}
                     </td>
                     <td>
                         <button pButton pRipple type="button" class="p-button-rounded p-button-outlined"
-                            icon="pi pi-pencil" (click)="getPublicacao(rowData.id_publicacao)"></button>
+                            icon="pi pi-pencil" (click)="getPublicacao(rowData.id)"></button>
                     </td>
                 </tr>
             </ng-template>

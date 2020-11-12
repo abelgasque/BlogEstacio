@@ -21,33 +21,19 @@
             </div>
         </form>
         <div class="row p-fluid">
-            <div class="col-12 col-md-4">
-                <button pButton type="button" label="Google" (click)="loginGoogle()"></button>
+            <div class="col-12 col-md-6">
+                <button pButton type="button" label="Google" (click)="this.auth.loginGoogle()"></button>
             </div>
-            <div class="col-12 col-md-4">
-                <button pButton type="button" label="Facebook" (click)="loginFacebook()"></button>
-            </div>
-            <div class="col-12 col-md-4">
-                <button pButton type="button" label="Twitter" (click)="loginTwitter()"></button>
+            <div class="col-12 col-md-6">
+                <button pButton type="button" label="Facebook" (click)="this.auth.loginFacebook()"></button>
             </div>
         </div>
-        <div class="row p-fluid">
-            <div class="col-6">
-                <a mat-button>
-                    Perdeu sua senha?
+        <div class="row">
+            <div class="col-12" fxLayoutAlign="center center">
+                <a mat-button [routerLink]="['']" routerLinkActive="active-link">
+                    Voltar ao inicio
                 </a>
             </div>
-            <div class="col-6">
-                <a mat-button [routerLink]="['/seguranca','pessoa', 'adicionar']" routerLinkActive="select">
-                    Cadastrar-se
-                </a>
-            </div>
-        </div>
-
-        <div class="ui-g-12" fxLayoutAlign="center center">
-            <a mat-button [routerLink]="['']" routerLinkActive="active-link">
-                Voltar ao inicio
-            </a>
         </div>
     </div>
 </div>
