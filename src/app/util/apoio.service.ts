@@ -28,7 +28,8 @@ export class ApoioService {
     publicacao.titulo = retorno.titulo;
     publicacao.tipo = retorno.tipo;
     publicacao.situacao = retorno.situacao;
-    publicacao.img = retorno.img;
+    publicacao.pathImg = retorno.pathImg;
+    publicacao.nameImg = retorno.nameImg;
     publicacao.id = retorno.id;
     publicacao.fk_pessoa = retorno.fk_pessoa;
     publicacao.dt = retorno.dt.toDate();

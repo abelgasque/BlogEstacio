@@ -5,31 +5,14 @@
             <img class="img" src="../../../assets/img/box-login.png">
             <span class="login">Login</span>
         </div>
-        <form class="row p-fluid" #f="ngForm" autocomplete="on" (ngSubmit)="login()">
-            <div class="col-12">
-                <label>E-mail</label>
-                <input pInputText type="text" name="email" [(ngModel)]="usuario.email" minlength="5" maxlength="50"
-                    required>
-            </div>
-            <div class="col-12">
-                <label>Senha</label>
-                <input pInputText type="password" name="senha" [(ngModel)]="usuario.senha" minlength="5" maxlength="50"
-                    required>
-            </div>
-            <div class="col-12">
-                <button pButton type="submit" label="Entrar" [disabled]="!f.valid"></button>
-            </div>
-        </form>
-        <div class="row p-fluid">
-            <div class="col-12 col-md-6">
+        <div class="row" fxLayoutAlign="center center">
+            <div class="col-12 p-fluid">
                 <button pButton type="button" label="Google" (click)="this.auth.loginGoogle()"></button>
             </div>
-            <div class="col-12 col-md-6">
+            <div class="col-12 p-fluid">
                 <button pButton type="button" label="Facebook" (click)="this.auth.loginFacebook()"></button>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-12" fxLayoutAlign="center center">
+            <div class="col-12">
                 <a mat-button [routerLink]="['']" routerLinkActive="active-link">
                     Voltar ao inicio
                 </a>

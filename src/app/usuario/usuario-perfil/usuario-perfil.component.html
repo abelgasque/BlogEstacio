@@ -1,2 +1,3 @@
 <app-spinner [hidden]="!displaySpinner"></app-spinner>
-<app-usuario-form *ngIf="this.usuario.id!=''" [usuario]="usuario"></app-usuario-form>
+<app-usuario-form [userDTO]="usuario" 
+[isTipo]="usuario.user?.tipo=='ADMINISTRADOR'" [isSituacao]="usuario.user?.tipo=='ADMINISTRADOR'"></app-usuario-form>

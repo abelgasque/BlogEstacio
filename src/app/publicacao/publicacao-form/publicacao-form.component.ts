@@ -1,5 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFireStorage, AngularFireUploadTask } from '@angular/fire/storage';
+import { MenuItem } from 'primeng/api';
+import { Observable } from 'rxjs';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 import { ApoioService } from 'src/app/util/apoio.service';
 import { Publicacao } from 'src/app/util/model';
@@ -27,15 +30,66 @@ export class PublicacaoFormComponent implements OnInit {
     { label: 'Inativo', value: 'INATIVO' }
   ]
 
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
+  task: AngularFireUploadTask;
+  complete: boolean;
+  caminhoImagem: any;
+  imageSrc: any;
+  items: MenuItem[];
+  uploadedFiles: any[] = [];
+  urlImg: any;
+
   constructor(
     public apoio: ApoioService,
     private db: AngularFirestore,
-    private toasty: ToastyService
+    private toasty: ToastyService,
+    private storage: AngularFireStorage
+
   ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  create() {
+  removeFile() {
+    this.publicacao.pathImg = "";
+    this.publicacao.nameImg = "";
+  }
+
+  onSelectFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      let reader = new FileReader();
+      let file = event.target.files[0];
+      let fileName: any = file.name;
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event) => {
+        let urlImg: any = event.target.result;
+        this.publicacao.pathImg = urlImg;
+        this.publicacao.nameImg = fileName;
+      }
+    } else {
+      this.urlImg = "";
+    }
+  }
+
+  uploadFile(event) {
+    if (event.target.files && event.target.files[0]) {
+      this.complete = false;
+      let file = event.target.files[0];
+      let path = `publicacoes/${file.name}`;
+      let fileRef = this.storage.ref(path.replace(/\s/g, ''));
+      this.task = this.storage.upload(path.replace(/\s/g, ''), file);
+      this.task.then(up => {
+        fileRef.getDownloadURL().subscribe(url => {
+          this.complete = true
+          this.publicacao.pathImg = url;
+          this.publicacao.nameImg = file.name;
+        })
+      })
+    }
+
+  }
+
+  insert() {
     this.db.collection("publicacao").add(Object.assign({}, this.publicacao))
       .then((resp) => {
         this.retornoPersistencia.emit(true);
@@ -63,7 +117,7 @@ export class PublicacaoFormComponent implements OnInit {
 
   gerenciarPersistencia() {
     if (this.publicacao.id == "") {
-      this.create();
+      this.insert();
     } else {
       this.update();
     }

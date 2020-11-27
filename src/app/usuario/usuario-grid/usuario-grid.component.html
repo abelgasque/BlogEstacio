@@ -7,8 +7,6 @@
             <ng-template pTemplate="caption">
                 <div class="ui-helper-clearfix" style="text-align: center">
                     Lista de usuários
-                    <button type="button" class="p-button-outlined" iconPos="left" style="float:right" icon="pi pi-plus"
-                        label="Adicionar" (click)="setUsuario()" pButton></button>
                 </div>
             </ng-template>
             <ng-template pTemplate="header">
@@ -50,8 +48,8 @@
         </p-table>
     </mat-tab>
     <mat-tab [label]="titleDisplay">
-        <app-usuario-form [usuario]="usuario" (retornoPersistencia)="getRetornoFormPessoa($event)" [isSituacao]="true"
-        [isTipo]="true"></app-usuario-form>
+        <app-usuario-form [userDTO]="this.userDTO" (retornoPersistencia)="getRetornoFormPessoa($event)"
+            [isSituacao]="true" [isTipo]="true"></app-usuario-form>
     </mat-tab>
 </mat-tab-group>
 

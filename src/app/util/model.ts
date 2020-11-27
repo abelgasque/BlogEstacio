@@ -1,15 +1,13 @@
-export class Pessoa {
-    id_pessoa: string = null;
-    img_pessoa: string = "https://firebasestorage.googleapis.com/v0/b/blog-6dd54.appspot.com/o/usuario_padrao.jpg?alt=media&token=dae90e7c-9394-4f5e-aa1e-0b6be7cc1362";
+export class User {
+    provedor: string = null;
+    photoUrl: string = null;
     nome: string = null;
-    sobrenome: string = null;
     cpf: string = null;
     genero: string = null;
-    tipo_pessoa: string = "ALUNO";
+    tipo: string = null;
     email: string = null;
     celular: string = null;
-    telefone: string = null;
-    situacao_pessoa: string = "INATIVO";
+    situacao: string = "INATIVO";
     senha: string = null;
     cep: string = null;
     uf: string = null;
@@ -20,30 +18,15 @@ export class Pessoa {
     numero: string = null;
 }
 
-export class Usuario {
-    id: string = "";
-    provedor: string = "";
-    photoUrl: string = "https://firebasestorage.googleapis.com/v0/b/blog-6dd54.appspot.com/o/usuario_padrao.jpg?alt=media&token=dae90e7c-9394-4f5e-aa1e-0b6be7cc1362";
-    nome: string = "";
-    cpf: string = "";
-    genero: string = "";
-    tipo: string = "ALUNO";
-    email: string = "";
-    celular: string = "";
-    situacao: string = "INATIVO";
-    senha: string = "";
-    cep: string = "";
-    uf: string = "";
-    cidade: string = "";
-    bairro: string = "";
-    logradouro: string = "";
-    complemento: string = "";
-    numero: string = "";
+export class UserDTO {
+    id: string = null;
+    user = new User();
 }
 
 export class Publicacao {
     id: string = "";
-    img: string = "";
+    pathImg: string = "";
+    nameImg: string = "";
     titulo: string = "";
     descricao: string = "";
     tipo: string = "";

@@ -1,31 +1,33 @@
 <app-spinner [hidden]="!displaySpinner"></app-spinner>
 <mat-toolbar color="primary">
-    <a routerLinkActive="active" [routerLink]="['/']">Sistemas 2020.1</a>
+    <a routerLinkActive="active" [routerLink]="['']">Sistemas 2020.1</a>
     <span mat-button class="example-spacer"></span>
-    <a mat-button routerLinkActive="active" [routerLink]="['/seguranca', 'login']" *ngIf="this.auth.user==null">
+    <a mat-button routerLinkActive="active" [routerLink]="['/seguranca', 'login']" *ngIf="this.auth.userDTO.id==null">
         <mat-icon>login</mat-icon>
         Login
     </a>
-    <a mat-button *ngIf="this.auth.user!=null" [matMenuTriggerFor]="menu">
-        <img class="img_perfil_pessoal_navbar" [src]="this.auth.user.photoUrl">
-        {{this.auth.user?.nome}}
+    <a mat-button [matMenuTriggerFor]="menu" *ngIf="this.auth.userDTO.id!=null">
+        <img class="img_perfil_pessoal_navbar" [src]="this.auth.userDTO.user?.photoUrl">
+        {{this.auth.userDTO.user?.nome}}
     </a>
 </mat-toolbar>
 
 <mat-menu #menu="matMenu" yPosition="above">
-    <div class="row p-fluid header" mat-menu-item *ngIf="this.auth.user!=null" routerLinkActive="select"
+    <div class="row p-fluid header" mat-menu-item *ngIf="this.auth.userDTO.user!=null" routerLinkActive="select"
         [routerLink]="['/usuario', 'perfil']">
-        <img class="col-12 img center" [src]="this.auth.user.photoUrl">
-        <h4 class="col-12 people">{{this.auth.user?.nome}}</h4>
-        <p class="col-12 people">{{this.auth.user?.email}}</p>
+        <img *ngIf="this.auth.userDTO.id!=null" class="col-12 img center" [src]="this.auth.userDTO.user?.photoUrl">
+        <h4 class="col-12 people">{{this.auth.userDTO.user?.nome}}</h4>
+        <p class="col-12 people">{{this.auth.userDTO.user?.email}}</p>
     </div>
     <mat-divider></mat-divider>
-    <a mat-menu-item routerLinkActive="active" [routerLink]="['/usuario', 'grid']">
+    <a mat-menu-item routerLinkActive="active" [routerLink]="['/usuario', 'grid']"
+        *ngIf="this.auth.userDTO.user.tipo=='ADMINISTRADOR'">
         <mat-icon>peoples</mat-icon>
         <span>Usuarios</span>
     </a>
     <mat-divider></mat-divider>
-    <a mat-menu-item routerLinkActive="active" [routerLink]="['/publicacao']">
+    <a mat-menu-item routerLinkActive="active" [routerLink]="['/publicacao']"
+        *ngIf="this.auth.userDTO.user.tipo=='ADMINISTRADOR'">
         <mat-icon>publish</mat-icon>
         <span>Publicações</span>
     </a>
@@ -35,29 +37,3 @@
         <span>Logout</span>
     </button>
 </mat-menu>
-
-<p-sidebar [(visible)]="displaySidebar" [showCloseIcon]="false" [blockScroll]="true">
-    <p-scrollPanel [style]="{width: '100%', height: '100%'}">
-
-        <p-treeTable [value]="menu" selectionMode="single" #tt *ngIf="this.displaySidebar">
-            <ng-template pTemplate="header">
-                <tr>
-                    <th [ngClass]="'kb-row'">
-                        <a mat-icon-button (click)="this.displaySidebar = !this.displaySidebar">
-                            <mat-icon>close</mat-icon>
-                        </a>
-                        Filtro por categorias
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
-                <tr [ttSelectableRow]="rowNode">
-                    <td>
-                        <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
-                        {{rowData.name}}
-                    </td>
-                </tr>
-            </ng-template>
-        </p-treeTable>
-    </p-scrollPanel>
-</p-sidebar>

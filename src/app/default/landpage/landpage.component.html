@@ -1,5 +1,5 @@
-<div>
-    <div>
+<div class="row">
+    <div class="col-12">
         <div id="demo" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -45,156 +45,83 @@
             <a class="carousel-control-next" href="#demo" data-slide="next">
                 <span class="carousel-control-next-icon"></span>
             </a>
-
         </div>
-
     </div>
-
-</div>
-<div class="sobreoblog">
-    <div id="section2">
-        <h1  data-aos="flip-up">Blog Estácio</h1>
-
-        <h2 data-aos="flip-down">Hierarquia de usuários</h2>
-
-    </div>
-    <div class="container">
-        <div class="row">
-            <mat-card class="example-card col"  data-aos="fade-right" data-aos-duration="11379000">
-                <mat-card-header>
-                    <div mat-card-avatar class="example-header-image1"></div>
-                    <mat-card-title>Abel Gasques-Admin</mat-card-title>
-                    <mat-card-subtitle>Admin-user</mat-card-subtitle>
-                </mat-card-header>
-                <img mat-card-image src="./../../../assets/img/landpage/cards/fotoperfil1.jpg"
-                    alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <p>
-                        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                        bred for hunting.
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                </mat-card-actions>
-            </mat-card>
-            <mat-card class="example-card col" data-aos="fade-down" data-aos-duration="11379000">
-                <mat-card-header>
-                    <div mat-card-avatar class="example-header-image2"></div>
-                    <mat-card-title>Leandro Hugston</mat-card-title>
-                    <mat-card-subtitle>Professor</mat-card-subtitle>
-                </mat-card-header>
-                <img mat-card-image src="./../../../assets/img/landpage/cards/fotoperfil2.jpg"
-                    alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <p>
-                        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                        bred for hunting.
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                </mat-card-actions>
-            </mat-card>
-            <mat-card class="example-card col" data-aos="fade-left" data-aos-duration="11379000">
-                <mat-card-header>
-                    <div mat-card-avatar class="example-header-image3"></div>
-                    <mat-card-title>Matheus lenis</mat-card-title>
-                    <mat-card-subtitle>Aluno</mat-card-subtitle>
-                </mat-card-header>
-                <img mat-card-image src="./../../../assets/img/landpage/cards/fotoperfil3.jpg"
-                    alt="Photo of a Shiba Inu">
-                <mat-card-content>
-                    <p>
-                        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-                        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-                        bred for hunting.
-                    </p>
-                </mat-card-content>
-                <mat-card-actions>
-                </mat-card-actions>
-            </mat-card>
-        </div>
-
-        <h2 data-aos="flip-up">Regras do Blog</h2>
-
-        <div class="regras">
-
-            <mat-accordion>
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header data-aos="fade-down" data-aos-duration="11379000">
-                        <mat-panel-title>
-                            1°
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            Não xingar!
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <p>Não é permitido qualquer tipo de ataque ou agreção verbal entre os membros do blog. Isso lhe deixará sujeito a ter o post ou até mesmo a conta deletada.</p>
-                </mat-expansion-panel>
-                <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                    <mat-expansion-panel-header data-aos="fade-down" data-aos-duration="11379000">
-                        <mat-panel-title>
-                            2°
-                        </mat-panel-title>
-                        <mat-panel-description>
-                            Não disseminar desinformação!
-                        </mat-panel-description>
-                    </mat-expansion-panel-header>
-                    <p>É absolutamente proibido qualquer tipo de resposta à questões sem um link de referência que encaminhe a um texto, dissertação, pdf, etc, que possa validar a resposta. Isso lhe deixará sujeito a ter o post ou até mesmo a conta deletada.</p>
-                </mat-expansion-panel>
-            </mat-accordion>
+    <h2 class="col-12">Regras do Blog</h2>
+    <div class="col-12">
+        <mat-accordion>
             <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header data-aos="fade-down" data-aos-duration="11379000">
+                <mat-expansion-panel-header>
                     <mat-panel-title>
-                        3°
+                        1°
                     </mat-panel-title>
                     <mat-panel-description>
-                        Não seja superficial!
+                        Não xingar!
                     </mat-panel-description>
                 </mat-expansion-panel-header>
-                <p>Tanto quando for responder, quanto quando tiver uma questão, é necessário fornecer o máximo de informações possível.</p>
+                <p>Não é permitido qualquer tipo de ataque ou agreção verbal entre os membros do blog. Isso lhe
+                    deixará sujeito a ter o post ou até mesmo a conta deletada.</p>
             </mat-expansion-panel>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div id="section1" class="quemsomos col">
-                    <h1  data-aos="flip-up">Quem Somos?</h1>
-
-                    <h3 data-aos="flip-up">Como surgimos?</h3>
-
-                    <p data-aos="zoom-in">
-                        A partir da necessidade tanto de alunos que estão em seu primeiro contato com a área da tecnologia para desenvolvimento de softwares, quanto para os que já as desbravam a um tempo, pois apesar da grande gama de informação sobre o assunto, muitas pessoas que ainda estão se adaptando com esse ambiente tão vasto de informação, necessitam de uma atenção direcionada.
-                    </p>
-
-                    <h3 data-aos="flip-up">O'que fazemos?</h3>
-
-                    <p data-aos="zoom-in">
-                        Estamos a procura de otimizar cada dia mais uma plataforma para resolução de problemas e questões de alunos de cursos que irão formar desenvolvedores, sejam eles da Estácio ou não e independente da linguagem!
-                        bred for hunting.
-                    </p>
-
-                </div>
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        2°
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Não disseminar desinformação!
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+                <p>É absolutamente proibido qualquer tipo de resposta à questões sem um link de referência que
+                    encaminhe a um texto, dissertação, pdf, etc, que possa validar a resposta. Isso lhe deixará
+                    sujeito a ter o post ou até mesmo a conta deletada.</p>
+            </mat-expansion-panel>
+        </mat-accordion>
+        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>
+                    3°
+                </mat-panel-title>
+                <mat-panel-description>
+                    Não seja superficial!
+                </mat-panel-description>
+            </mat-expansion-panel-header>
+            <p>Tanto quando for responder, quanto quando tiver uma questão, é necessário fornecer o máximo de
+                informações possível.</p>
+        </mat-expansion-panel>
+    </div>
+    <div class="col-12">
+        <div class="row">
+            <div id="section1" class="quemsomos col-12">
+                <h3>Como surgimos?</h3>
+                <p>
+                    A partir da necessidade tanto de alunos que estão em seu primeiro contato com a área da
+                    tecnologia para desenvolvimento de softwares, quanto para os que já as desbravam a um tempo,
+                    pois apesar da grande gama de informação sobre o assunto, muitas pessoas que ainda estão se
+                    adaptando com esse ambiente tão vasto de informação, necessitam de uma atenção direcionada.
+                </p>
+                <h3>O'que fazemos?</h3>
+                <p>
+                    Estamos a procura de otimizar cada dia mais uma plataforma para resolução de problemas e
+                    questões de alunos de cursos que irão formar desenvolvedores, sejam eles da Estácio ou não e
+                    independente da linguagem!
+                    bred for hunting.
+                </p>
             </div>
         </div>
     </div>
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <h4>Siga-nos nas redes sociais</h4>
-                    <p>@abel_gasques</p>
-                    <p>@ramon_viadao</p>
-                    <p>@seila_fds</p>
-                </div>
-                <div class="col">
-                    <h4>Para reclamações ou duvidas:</h4>
-                    <p>(48) 95859-5859</p>
-                    <p>@blog_estaio</p>
-                    <p>blogestacio@gmail.com</p>
-                </div>
+    <footer class="col-12">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <h4>Siga-nos nas redes sociais</h4>
+                <p>@teste_teste</p>
+                <p>@teste_teste</p>
+            </div>
+            <div class="col-12 col-md-6">
+                <h4>Para reclamações ou duvidas:</h4>
+                <p>Abel Gasque</p>
+                <p>Brian Cascão</p>
+                <p>teste@teste.com</p>
             </div>
         </div>
     </footer>
-    <app-footer></app-footer>
+</div>

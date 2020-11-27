@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/seguranca/auth.service';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
-import { Usuario } from 'src/app/util/model';
+import { User, UserDTO } from 'src/app/util/model';
 
 @Component({
   selector: 'app-usuario-perfil',
@@ -11,14 +12,15 @@ import { Usuario } from 'src/app/util/model';
 })
 export class UsuarioPerfilComponent implements OnInit {
 
-  usuario = new Usuario();
+  usuario = new UserDTO();
   displaySpinner: boolean = false;
   displayForm: boolean = false;
 
   constructor(
     public auth: AuthService,
     private db: AngularFirestore,
-    private toasty: ToastyService
+    private toasty: ToastyService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,10 +29,8 @@ export class UsuarioPerfilComponent implements OnInit {
 
   getUsuario() {
     this.displaySpinner = true;
-    if (this.auth.user != null) {
-      if (this.auth.user.email != null) {
-        this.getUsuarioByEmail(this.auth.user.email);
-      }
+    if (this.auth.userDTO.id != null && this.auth.userDTO.user.email != null) {
+      this.getUsuarioByEmail(this.auth.userDTO.user.email);
     }
   }
 
@@ -50,7 +50,7 @@ export class UsuarioPerfilComponent implements OnInit {
     if (user != null) {
       this.usuario = user;
     } else {
-      this.usuario = this.auth.user;
+      this.usuario = this.auth.userDTO;
     }
     this.displaySpinner = false;
   }

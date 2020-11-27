@@ -4,7 +4,7 @@
         <div class="col-12">
             <p-panel header="Foto de perfil">
                 <div class="box">
-                    <img class="img" [src]="usuario.photoUrl">
+                    <img class="img" [src]="userDTO.user.photoUrl">
                 </div>
             </p-panel>
         </div>
@@ -12,45 +12,40 @@
             <div class="p-grid p-fluid">
                 <div class="col-6 col-md-3">
                     <label>Nome</label>
-                    <input type="text" name="nome" [(ngModel)]="usuario.nome" required maxlength="20" pInputText>
+                    <input type="text" name="nome" [(ngModel)]="userDTO.user.nome" required maxlength="20" pInputText>
                     <small class="obrigatorio">Campo obrigatorio</small>
                 </div>
-                <!-- <div class="col-12 col-md-4">
-                    <label>Sobrenome</label>
-                    <input type="text" name="sobrenome" [(ngModel)]="pessoa.sobrenome" maxlength="50" pInputText>
-                    <small class="opcional">Campo opcional</small>
-                </div> -->
                 <div class="col-6 col-md-2">
                     <label>CPF</label>
-                    <p-inputMask mask="999.999.999-99" name="cpf" [(ngModel)]="usuario.cpf" required></p-inputMask>
+                    <p-inputMask mask="999.999.999-99" name="cpf" [(ngModel)]="userDTO.user.cpf" required></p-inputMask>
                     <small class="obrigatorio">Campo obrigatorio</small>
                 </div>
                 <div class="col-6 col-md-2">
                     <label>Genero</label>
-                    <p-dropdown name="genero" [options]="generos" appendTo="body" [(ngModel)]="usuario.genero">
+                    <p-dropdown name="genero" [options]="generos" appendTo="body" [(ngModel)]="userDTO.user.genero">
                     </p-dropdown>
                     <small class="opcional">Campo opcional</small>
                 </div>
                 <div class="col-6 col-md-2" [hidden]="!isTipo">
                     <label>Tipo</label>
-                    <p-dropdown name="tipo" [options]="tipos" appendTo="body" [(ngModel)]="usuario.tipo" required>
+                    <p-dropdown name="tipo" [options]="tipos" appendTo="body" [(ngModel)]="userDTO.user.tipo" required>
                     </p-dropdown>
                     <small class="obrigatorio">Campo obrigatorio</small>
                 </div>
                 <div class="col-12 col-md-4">
                     <label>E-mail</label>
-                    <input type="text" name="email" [(ngModel)]="usuario.email" required maxlength="100" pInputText>
+                    <input type="text" name="email" [(ngModel)]="userDTO.user.email" required maxlength="100" pInputText>
                     <small class="obrigatorio">Campo obrigatorio</small>
                 </div>
                 <div class="col-12 col-md-3">
                     <label>Celular</label>
-                    <p-inputMask mask="(99) 99999-9999" name="celular" [(ngModel)]="usuario.celular" required>
+                    <p-inputMask mask="(99) 99999-9999" name="celular" [(ngModel)]="userDTO.user.celular" required>
                     </p-inputMask>
                     <small class="obrigatorio">Campo obrigatorio</small>
                 </div>
                 <div class="col-12 col-md-4" [hidden]="!isSituacao">
                     <label>Situação</label>
-                    <p-selectButton [options]="situacoes" name="situacao" [(ngModel)]="usuario.situacao" required>
+                    <p-selectButton [options]="situacoes" name="situacao" [(ngModel)]="userDTO.user.situacao" required>
                     </p-selectButton>
                     <small class="obrigatorio">Campo obrigatório</small>
                 </div>
@@ -60,38 +55,38 @@
             <div class="p-grid p-fluid">
                 <div class="col-6 col-md-2">
                     <label>CEP</label>
-                    <p-inputMask mask="99999-999" name="cep" [(ngModel)]="usuario.cep"
-                        (onBlur)="getEnderecoPorCep(usuario.cep)"></p-inputMask>
+                    <p-inputMask mask="99999-999" name="cep" [(ngModel)]="userDTO.user.cep"
+                        (onBlur)="getEnderecoPorCep(userDTO.user.cep)"></p-inputMask>
                     <small class="opcional">Campo opcional</small>
                 </div>
                 <div class="col-6 col-md-1">
                     <label>UF</label>
-                    <input pInputText type="text" name="uf" [(ngModel)]="usuario.uf" maxlength="2">
+                    <input pInputText type="text" name="uf" [(ngModel)]="userDTO.user.uf" maxlength="2">
                     <small class="opcional">Opcional</small>
                 </div>
                 <div class="col-6 col-md-3">
                     <label>Cidade</label>
-                    <input pInputText type="text" name="cidade" [(ngModel)]="usuario.cidade" maxlength="30">
+                    <input pInputText type="text" name="cidade" [(ngModel)]="userDTO.user.cidade" maxlength="30">
                     <small class="opcional">Campo opcional</small>
                 </div>
                 <div class="col-6 col-md-3">
                     <label>Bairro</label>
-                    <input pInputText type="text" name="bairro" [(ngModel)]="usuario.bairro" maxlength="30">
+                    <input pInputText type="text" name="bairro" [(ngModel)]="userDTO.user.bairro" maxlength="30">
                     <small class="opcional">Campo opcional</small>
                 </div>
                 <div class="col-6 col-md-3">
                     <label>Logradouro</label>
-                    <input pInputText type="text" name="logradouro" [(ngModel)]="usuario.logradouro" maxlength="50">
+                    <input pInputText type="text" name="logradouro" [(ngModel)]="userDTO.user.logradouro" maxlength="50">
                     <small class="opcional">Campo opcional</small>
                 </div>
                 <div class="col-6 col-md-2">
                     <label>Complemento</label>
-                    <input pInputText type="text" name="complemento" [(ngModel)]="usuario.complemento" maxlength="15">
+                    <input pInputText type="text" name="complemento" [(ngModel)]="userDTO.user.complemento" maxlength="15">
                     <small class="opcional">Campo opcional</small>
                 </div>
                 <div class="col-6 col-md-2">
                     <label>Número</label>
-                    <input pInputText type="text" name="numero" [(ngModel)]="usuario.numero" maxlength="10">
+                    <input pInputText type="text" name="numero" [(ngModel)]="userDTO.user.numero" maxlength="10">
                     <small class="opcional">Opcional</small>
                 </div>
             </div>
@@ -99,7 +94,7 @@
         <div class="row">
             <div class="col-12 col-md-2">
                 <button type="submit" class="p-button-outlined" icon="pi pi-check"
-                    [label]="usuario.id == ''?'Adicionar':'Editar'" [disabled]="!formPessoa.valid"
+                    [label]="this.userDTO.id==null?'Inserir':'Atualizar'" [disabled]="!formPessoa.valid"
                     pButton></button>
             </div>
             <div class="col-12 col-md-2">

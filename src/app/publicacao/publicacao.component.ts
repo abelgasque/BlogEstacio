@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection, CollectionReference } from '@angular/fire/firestore';
 import { FormControl } from '@angular/forms';
 import { ToastyService } from '../shared/components/toasty/toasty.service';
 import { ApoioService } from '../util/apoio.service';
 import { Publicacao } from '../util/model';
+import { Observable, BehaviorSubject, combineLatest, timer, Subject } from 'rxjs';
+import firebase from 'firebase';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-publicacao',
@@ -18,14 +21,58 @@ export class PublicacaoComponent implements OnInit {
   selected = new FormControl(0);
   titleForm: string = "Incluir";
 
+  publicacoesCollection: AngularFirestoreCollection<Publicacao>;
+  datas: Observable<Publicacao[]>;
+  data: Observable<Publicacao>;
+  publicacao$: Observable<any[]>;
+  situacaoFilter$: BehaviorSubject<string | null>;
+  tituloFilter$: BehaviorSubject<string | null>;
+
   constructor(
     public apoioService: ApoioService,
     private toastyService: ToastyService,
-    private db: AngularFirestore
-  ) { }
+    private db: AngularFirestore,
+  ) {
+    this.tituloFilter$ = new BehaviorSubject(null);
+    this.situacaoFilter$ = new BehaviorSubject(null);
+    this.publicacao$ = combineLatest(
+      this.tituloFilter$,
+      this.situacaoFilter$,
+    ).pipe(
+      switchMap(([titulo, situacao]) =>
+        db.collection('publicacao', ref => {
+          let query: firebase.firestore.CollectionReference | firebase.firestore.Query = ref;
+          if (situacao) { query = query.where('situacao', '==', situacao) };
+          if (titulo) { query = query.where('titulo', '==', titulo) };
+          return query;
+        }).valueChanges()
+      )
+    );
+  }
 
   ngOnInit(): void {
     this.getAll();
+    this.get();
+  }
+
+  montarFiltro(filter: Publicacao) {
+    if (filter.titulo) {
+      this.tituloFilter$.next("dfgdfggdfdfgdfg");
+    }
+    if (filter.situacao) {
+      this.situacaoFilter$.next("INATIVO");
+    }
+  }
+
+  get() {
+    this.publicacao$.subscribe(
+      (resp) => {
+        console.log(resp);
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
   }
 
   retornoPersistenciaForm(event: boolean) {

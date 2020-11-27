@@ -8,7 +8,7 @@ import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 import { ApoioService } from 'src/app/util/apoio.service';
 import { AuthService } from '../auth.service';
 
-export class Usuario {
+export class User {
   email: string;
   senha: string;
 }
@@ -20,7 +20,7 @@ export class Usuario {
 })
 export class LoginComponent implements OnInit {
 
-  usuario = new Usuario();
+  User = new User();
   displaySpinner: boolean = false;
   userData: any;
 
@@ -29,9 +29,5 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-  }
-
-  login() {
-    this.auth.login(this.usuario.email, this.usuario.senha);
   }
 }

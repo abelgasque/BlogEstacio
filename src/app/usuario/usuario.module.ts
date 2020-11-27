@@ -23,8 +23,7 @@ import { UsuarioComponent } from './usuario.component';
 import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 import { UsuarioGridComponent } from './usuario-grid/usuario-grid.component';
 import { UsuarioPerfilComponent } from './usuario-perfil/usuario-perfil.component';
-
-
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -38,6 +37,7 @@ import { UsuarioPerfilComponent } from './usuario-perfil/usuario-perfil.componen
     FormsModule,
     RouterModule,
     HttpClientModule,
+    AngularFireStorageModule,
 
     TableModule,
     ButtonModule,

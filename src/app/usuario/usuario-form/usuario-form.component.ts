@@ -3,7 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { NgForm } from '@angular/forms';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 import { ApoioService } from 'src/app/util/apoio.service';
-import { Pessoa, Usuario } from 'src/app/util/model';
+import { User, UserDTO } from 'src/app/util/model';
 
 @Component({
   selector: 'app-usuario-form',
@@ -12,7 +12,7 @@ import { Pessoa, Usuario } from 'src/app/util/model';
 })
 export class UsuarioFormComponent implements OnInit {
 
-  @Input() usuario: Usuario;
+  @Input() userDTO: UserDTO;
   @Input() isSituacao: boolean = false;
   @Input() isTipo: boolean = false;
   @Output() retornoPersistencia = new EventEmitter<boolean>();
@@ -52,28 +52,28 @@ export class UsuarioFormComponent implements OnInit {
   }
 
   gerenciarPersistencia() {
-    if (this.usuario.id == "") {
-      this.create();
+    if (this.userDTO.user==null) {
+      this.insert();
     } else {
       this.update();
     }
   }
 
-  create() {
-    this.db.collection("user").add(Object.assign({}, this.usuario))
+  insert() {
+    this.db.collection("user").add(Object.assign({}, this.userDTO))
       .then((resp) => {
         this.retornoPersistencia.emit(true);
-        this.toasty.showSuccess("Usuario criada");
+        this.toasty.showSuccess("Usuario inserido com sucesso!");
       })
       .catch(resp => {
         console.log(resp);
         this.retornoPersistencia.emit(false);
-        this.toasty.showError("Erro ao criar!");
+        this.toasty.showError("Erro ao inserir usuário!");
       });
   }
 
   update() {
-    this.db.collection("user").doc(this.usuario.id).update(Object.assign({}, this.usuario))
+    this.db.collection("user").doc(this.userDTO.id).update(Object.assign({}, this.userDTO.user))
       .then((resp: any) => {
         this.toasty.showSuccess("Usuario atualizada");
         this.retornoPersistencia.emit(true);
@@ -91,16 +91,16 @@ export class UsuarioFormComponent implements OnInit {
       .then(response => {
         if (response != null) {
           if (response?.erro == true) {
-            this.usuario.uf = "";
-            this.usuario.cidade = "";
-            this.usuario.bairro = "";
-            this.usuario.logradouro = "";
+            this.userDTO.user.uf = "";
+            this.userDTO.user.cidade = "";
+            this.userDTO.user.bairro = "";
+            this.userDTO.user.logradouro = "";
             this.toasty.showWarn("CEP inexistente!");
           } else {
-            this.usuario.uf = response.uf;
-            this.usuario.cidade = response.localidade;
-            this.usuario.bairro = response.bairro;
-            this.usuario.logradouro = response.logradouro;
+            this.userDTO.user.uf = response.uf;
+            this.userDTO.user.cidade = response.localidade;
+            this.userDTO.user.bairro = response.bairro;
+            this.userDTO.user.logradouro = response.logradouro;
           }
         }
         this.displaySpinner = false;

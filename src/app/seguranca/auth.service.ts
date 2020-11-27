@@ -5,15 +5,14 @@ import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { ToastyService } from '../shared/components/toasty/toasty.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { Usuario } from '../util/model';
+import { User, UserDTO } from '../util/model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  user: any = null;
-  userAuth: any = null;
+  userDTO = new UserDTO();
   displaySpinnerLogin: boolean = false;
 
   constructor(
@@ -22,33 +21,8 @@ export class AuthService {
     public auth: AngularFireAuth,
     private toastyService: ToastyService,
     private db: AngularFirestore
-  ) {}
-
-  login(email: string, senha: string) {
-    this.displaySpinnerLogin = true;
-    this.db.collection('user', ref => ref.where('email', '==', email)).get()
-      .subscribe((snapshot) => {
-        let data = null;
-        snapshot.forEach((doc) => {
-          data = {
-            'id': doc.id,
-            'data': doc.data()
-          }
-        });
-        if (data != null) {
-          if (data.data.senha != "") {
-            if (data.data.senha == senha) {
-              this.router.navigate(['']);
-              this.user = data.data;
-            } else {
-              this.toastyService.showError("Usuário e/ou senha incorreto!");
-            }
-          }
-        } else {
-          this.toastyService.showError("Usuário e/ou senha incorreto!");
-        }
-      })
-    this.displaySpinnerLogin = false;
+  ) {
+    this.getUserAuth(null);
   }
 
   loginProvider(provider: any, nomeProvider: string) {
@@ -88,60 +62,55 @@ export class AuthService {
   // }
 
   getUserAuth(provider: string) {
-    let coluna, colunaValor: string;
-    this.auth.authState.subscribe(resp => {
-      if (resp != null) {
-        if (resp.email != null && resp.email != "") {
-          coluna = 'email';
-          colunaValor = resp.email;
-          this.userAuth = resp;
-          this.getUserAuthWhere(coluna, colunaValor, provider);
-        }
-        this.router.navigate(['']);
+    this.userDTO = new UserDTO();
+    this.auth.authState.subscribe(userAuth => {
+      if (userAuth) {
+        this.db.collection('user').doc(userAuth.email).get()
+          .subscribe(
+            (response: any) => {
+              if (response.exists) {
+                this.userDTO.id = response.id;
+                this.userDTO.user = response.data();
+                console.log(this.userDTO);
+                if (this.router.url == '/seguranca/login') {
+                  this.router.navigate(['']);
+                }
+              } else {
+                this.insertUserAuth(userAuth, provider);
+              }
+            },
+            (error: any) => {
+              console.log(error);
+              this.toastyService.showError("Erro ao receber usuário autenticado");
+            }
+          )
       }
     })
   }
 
-  getUserAuthWhere(coluna: string, valor: string, provider: string) {
-    let data: any = null;
-    this.db.collection('user', ref => ref.where(coluna, '==', valor)).get()
-      .subscribe(querySnapshot => {
-        querySnapshot.forEach(doc => {
-          let dataResp = {
-            'id': doc.id,
-            'data': doc.data()
-          }
-          data = dataResp;
-        });
+  insertUserAuth(userAuth: any, provider: string) {
+    let userInsert = new User();
+    userInsert.photoUrl = userAuth.photoURL;
+    userInsert.nome = userAuth.displayName;
+    userInsert.email = userAuth.email;
+    userInsert.provedor = provider;
+    this.db.collection("user").doc(userAuth.email).set(Object.assign({}, userInsert))
+      .then(resp => {userInsert
+        this.getUserAuth(null);
+      })
+      .catch(resp => {
+        console.log(resp);
+        this.toastyService.showError("Erro ao gerar usuário padrão");
       });
-    if (data == null) {
-      this.gerarUsuarioAutenticado(this.userAuth, provider);
-    } else {
-      this.user = data.data;
-    }
-  }
-
-  gerarUsuarioAutenticado(user: any, provider: string) {
-    this.user = this.montarObjetoNovoUsuarioComUsuarioAuth(user, provider);
-  }
-
-  montarObjetoNovoUsuarioComUsuarioAuth(user: any, provider: string) {
-    let usuario = new Usuario();
-    usuario.photoUrl = user.photoURL;
-    usuario.id = user.uid;
-    usuario.nome = user.displayName;
-    usuario.email = user.email;
-    usuario.provedor = provider;
-    return usuario;
   }
 
   loggout() {
     this.auth.signOut()
       .then(resp => {
         this.apoio.removeUserStorage();
-        this.user = null;
-        this.toastyService.showSuccess("Loggout efetuado!");
-        this.router.navigate(['']);
+        this.userDTO = new UserDTO();
+        this.toastyService.showSuccess("Sessão usuário encerrada!");
+        this.router.navigate([''])
       })
       .catch(resp => {
         console.log(resp);

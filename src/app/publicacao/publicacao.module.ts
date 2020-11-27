@@ -20,8 +20,14 @@ import { PasswordModule } from 'primeng/password';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import {FileUploadModule} from 'primeng/fileupload';
+import {MenuModule} from 'primeng/menu';
 
 import { SharedModule } from '../shared/shared.module';
+import { TooltipModule } from 'primeng/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -47,7 +53,14 @@ import { SharedModule } from '../shared/shared.module';
     PasswordModule,
     InputTextareaModule,
     CalendarModule,
+    FileUploadModule,
+    TooltipModule,
+    MenuModule,
 
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule,
+    
     SharedModule
   ],
   providers: []
