@@ -1,14 +1,13 @@
-import { Component, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './default/default.component';
-import { SegurancaComponent } from './seguranca/seguranca.component';
-import { PublicacaoComponent } from './publicacao/publicacao.component';
-import { LoginComponent } from './seguranca/login/login.component';
-import { UsuarioComponent } from './usuario/usuario.component';
-import { UsuarioGridComponent } from './usuario/usuario-grid/usuario-grid.component';
-import { UsuarioPerfilComponent } from './usuario/usuario-perfil/usuario-perfil.component';
 import { LandpageComponent } from './default/landpage/landpage.component';
 import { HomeComponent } from './default/home/home.component';
+import { UserComponent } from './user/user.component';
+import { UserAccountComponent } from './user-account/user-account.component';
+import { PublishComponent } from './publish/publish.component';
+import { SecurityComponent } from './security/security.component';
+import { LoginComponent } from './security/login/login.component';
 
 const routes: Routes = [
     {
@@ -19,19 +18,19 @@ const routes: Routes = [
         ]
     },
     {
-        path: 'seguranca', component: SegurancaComponent,
+        path: 'security', component: SecurityComponent,
         children: [
             { path: 'login', component: LoginComponent }
         ]
     },
     {
-        path: 'usuario', component: UsuarioComponent,
+        path: 'user-account', component: UserAccountComponent,
         children: [
-            { path: 'grid', component: UsuarioGridComponent },
-            { path: 'perfil', component: UsuarioPerfilComponent }
+
         ]
     },
-    { path: 'publicacao', component: PublicacaoComponent }
+    { path: 'user', component: UserComponent },
+    { path: 'publish', component: PublishComponent }
 ];
 
 @NgModule({

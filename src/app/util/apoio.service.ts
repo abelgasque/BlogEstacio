@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import * as moment from 'moment';
-import { Publicacao } from './model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,23 +22,14 @@ export class ApoioService {
 
   constructor(private http: HttpClient) { }
 
-  montarObjetoPublicacao(retorno: any) {
-    let publicacao = new Publicacao();
-    publicacao.titulo = retorno.titulo;
-    publicacao.tipo = retorno.tipo;
-    publicacao.situacao = retorno.situacao;
-    publicacao.pathImg = retorno.pathImg;
-    publicacao.nameImg = retorno.nameImg;
-    publicacao.id = retorno.id;
-    publicacao.fk_pessoa = retorno.fk_pessoa;
-    publicacao.dt = retorno.dt.toDate();
-    publicacao.descricao = retorno.descricao;
-    return publicacao;
-  }
-
-  formatarTimestampToDate(data: any) {
+  formatTimestampToDate(data: any) {
     data = data.toDate();
     return moment(data).format("DD/MM/YYYY");
+  }
+
+  formatTimestampToDateEn(data: any) {
+    data = data.toDate();
+    return moment(data).format("YYYY-MM-DD");
   }
 
   stringParaData(data: string) {
@@ -47,7 +37,7 @@ export class ApoioService {
   }
 
   formatarDataStringPtBr(data: any) {
-    data = moment(data).toDate()
+    data = moment(data).toDate();
     return moment(data).format("DD/MM/YYYY");
   }
 

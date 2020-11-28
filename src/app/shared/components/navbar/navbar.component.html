@@ -1,33 +1,32 @@
 <app-spinner [hidden]="!displaySpinner"></app-spinner>
 <mat-toolbar color="primary">
-    <a routerLinkActive="active" [routerLink]="['']">Sistemas 2020.1</a>
+    <a routerLinkActive="active" [routerLink]="['']">Sistemas 2020</a>
     <span mat-button class="example-spacer"></span>
-    <a mat-button routerLinkActive="active" [routerLink]="['/seguranca', 'login']" *ngIf="this.auth.userDTO.id==null">
+    <a mat-button routerLinkActive="active" [routerLink]="['/security', 'login']" *ngIf="this.auth.userDTO.id==null">
         <mat-icon>login</mat-icon>
         Login
     </a>
     <a mat-button [matMenuTriggerFor]="menu" *ngIf="this.auth.userDTO.id!=null">
-        <img class="img_perfil_pessoal_navbar" [src]="this.auth.userDTO.user?.photoUrl">
-        {{this.auth.userDTO.user?.nome}}
+        <img class="img_user" [src]="this.auth.userDTO.user.photoURL">
+        {{this.auth.userDTO.user.name}}
     </a>
 </mat-toolbar>
-
 <mat-menu #menu="matMenu" yPosition="above">
     <div class="row p-fluid header" mat-menu-item *ngIf="this.auth.userDTO.user!=null" routerLinkActive="select"
-        [routerLink]="['/usuario', 'perfil']">
-        <img *ngIf="this.auth.userDTO.id!=null" class="col-12 img center" [src]="this.auth.userDTO.user?.photoUrl">
-        <h4 class="col-12 people">{{this.auth.userDTO.user?.nome}}</h4>
-        <p class="col-12 people">{{this.auth.userDTO.user?.email}}</p>
+        [routerLink]="['/user-account']">
+        <img *ngIf="this.auth.userDTO.id!=null" class="col-12 img center" [src]="this.auth.userDTO.user.photoURL">
+        <h4 class="col-12 people">{{this.auth.userDTO.user.name}}</h4>
+        <p class="col-12 people">{{this.auth.userDTO.user.type}}</p>
     </div>
     <mat-divider></mat-divider>
-    <a mat-menu-item routerLinkActive="active" [routerLink]="['/usuario', 'grid']"
-        *ngIf="this.auth.userDTO.user.tipo=='ADMINISTRADOR'">
+    <a mat-menu-item routerLinkActive="active" [routerLink]="['/user']"
+        *ngIf="this.auth.userDTO.user.type=='ADMINISTRADOR'">
         <mat-icon>peoples</mat-icon>
         <span>Usuarios</span>
     </a>
     <mat-divider></mat-divider>
-    <a mat-menu-item routerLinkActive="active" [routerLink]="['/publicacao']"
-        *ngIf="this.auth.userDTO.user.tipo=='ADMINISTRADOR'">
+    <a mat-menu-item routerLinkActive="active" [routerLink]="['/publish']"
+        *ngIf="this.auth.userDTO.user.type=='ADMINISTRADOR'">
         <mat-icon>publish</mat-icon>
         <span>Publicações</span>
     </a>

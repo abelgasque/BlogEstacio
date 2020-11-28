@@ -28,16 +28,14 @@ import { ToastyComponent } from './components/toasty/toasty.component';
 import { ToastyService } from './components/toasty/toasty.service';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { TabelaPublicacoesDefaultComponent } from './components/tabela-publicacoes-default/tabela-publicacoes-default.component';
-import { AuthService } from '../seguranca/auth.service';
+import { AuthService } from '../security/auth.service';
 
 @NgModule({
   declarations: [
     NavbarComponent,
     ToastyComponent,
     SpinnerComponent,
-    FooterComponent,
-    TabelaPublicacoesDefaultComponent
+    FooterComponent
 
   ],
   imports: [
@@ -69,8 +67,7 @@ import { AuthService } from '../seguranca/auth.service';
     NavbarComponent,
     ToastyComponent,
     SpinnerComponent,
-    FooterComponent,
-    TabelaPublicacoesDefaultComponent
+    FooterComponent
   ],
   providers: [
     ToastyService,

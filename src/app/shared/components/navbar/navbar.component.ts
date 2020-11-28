@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
-import { AuthService } from 'src/app/seguranca/auth.service';
+import { AuthService } from 'src/app/security/auth.service';
 import { ApoioService } from 'src/app/util/apoio.service';
 
 export class CategoriaDTO {
@@ -13,7 +13,7 @@ export class CategoriaDTO {
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements AfterViewInit {
+export class NavbarComponent implements OnInit {
 
   displaySidebar: boolean = false;
   displaySpinner: boolean = false;
@@ -24,5 +24,5 @@ export class NavbarComponent implements AfterViewInit {
     public auth: AuthService
   ) { }
 
-  ngAfterViewInit(): void { }
+  ngOnInit(): void { }
 }

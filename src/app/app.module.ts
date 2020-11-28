@@ -14,14 +14,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { DefaultModule } from './default/default.module';
-import { SegurancaModule } from './seguranca/seguranca.module';
-import { PublicacaoModule } from './publicacao/publicacao.module';
-import { UsuarioModule } from './usuario/usuario.module';
-
+import { SecurityModule } from './security/security.module';
+import { UserAccountModule } from './user-account/user-account.module';
+import { UserModule } from './user/user.module';
+import { PublishModule } from './publish/publish.module';
+import { CoreModule } from './core/core.module';
 registerLocaleData(localePt);
-
-import "firebase/auth";
-import "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyDIKJpbca_HnfKF5jHu8bBy4P2iZB2pkUQ",
@@ -49,9 +47,11 @@ const firebaseConfig = {
 
     SharedModule,
     DefaultModule,
-    SegurancaModule,
-    PublicacaoModule,
-    UsuarioModule
+    SecurityModule,
+    UserModule,
+    UserAccountModule,
+    PublishModule,
+    CoreModule
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'pt-br' },

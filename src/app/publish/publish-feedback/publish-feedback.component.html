@@ -1,0 +1,42 @@
+<p-table [value]="publications" [responsive]="true" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
+    currentPageReportTemplate="Registro {first} até {last} com total de {totalRecords} registros">
+    <ng-template pTemplate="body" let-rowData>
+        <tr style="background-color: grey;">
+            <td data-aos="fade-down" data-aos-duration="1000">
+                <mat-card>
+                    <mat-card-header *ngIf="rowData.data.uidGoogle!=null">
+                        <img mat-card-avatar class="header-image"
+                            src="../../../../assets/img/pessoas_perfil/{{rowData.data.img_pessoa}}">
+                        <mat-card-title>{{rowData.nome}} {{rowData.sobrenome}}</mat-card-title>
+                        <mat-card-subtitle>{{rowData.tipo_pessoa}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <mat-divider></mat-divider>
+                        <div class="row">
+                            <div class="col-12 p-fluid">
+                                <mat-card-title>{{rowData.data.titulo}}</mat-card-title>
+                                <mat-card-subtitle>{{rowData.data.tipo}}</mat-card-subtitle>
+                                <div class="col-12">
+                                    <p>{{rowData.data.descricao}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-divider *ngIf="isFooter"></mat-divider>
+                    </mat-card-content>
+                    <mat-card-actions *ngIf="isFooter">
+                        <button mat-button>Editar</button>
+                        <button mat-button>Comentários</button>
+                        <button mat-button>Detalhes</button>
+                    </mat-card-actions>
+                </mat-card>
+            </td>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+        <tr>
+            <td>
+                <h2>Sem dados para listar.</h2>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
