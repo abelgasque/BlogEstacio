@@ -8,6 +8,8 @@ import { UserAccountComponent } from './user-account/user-account.component';
 import { PublishComponent } from './publish/publish.component';
 import { SecurityComponent } from './security/security.component';
 import { LoginComponent } from './security/login/login.component';
+import { UserAccountDefaultComponent } from './user-account/user-account-default/user-account-default.component';
+import { UserAccountPublicationsComponent } from './user-account/user-account-publications/user-account-publications.component';
 
 const routes: Routes = [
     {
@@ -26,7 +28,8 @@ const routes: Routes = [
     {
         path: 'user-account', component: UserAccountComponent,
         children: [
-
+            { path: 'default', component: UserAccountDefaultComponent },
+            { path: 'publications', component: UserAccountPublicationsComponent },
         ]
     },
     { path: 'user', component: UserComponent },

@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { ToastyService } from '../shared/components/toasty/toasty.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +23,12 @@ export class ApoioService {
   };
   user: any = null;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private db: AngularFirestore,
+    private router: Router,
+    private toastyService: ToastyService
+  ) { }
 
   formatTimestampToDate(data: any) {
     data = data.toDate();
@@ -39,6 +47,30 @@ export class ApoioService {
   formatarDataStringPtBr(data: any) {
     data = moment(data).toDate();
     return moment(data).format("DD/MM/YYYY");
+  }
+
+  getUserAccount(id: string) {
+    this.db.collection('user').doc(id).get()
+      .toPromise()
+      .then((resp: any) => {
+        if (resp.exists) {
+          let data: any = {
+            'user': resp.data(),
+            'id': resp.id
+          }
+          if (data.user.dtBirth) {
+            data.user.dtBirth = new Date(data.user.dtBirth.toString());
+          }
+          this.getUserAuthStorage(data);
+          this.router.navigate(['/user-account','default']);
+        } else {
+          this.toastyService.showWarn("Usuário não encontrado!");
+        }
+      })
+      .catch(resp => {
+        console.log(resp);
+        this.toastyService.showError("Erro ao buscar usuário!");
+      });
   }
 
   getUserAuthStorage(user: any) {

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastyService } from '../shared/components/toasty/toasty.service';
 import { UserDTO } from '../core/model';
+import { ApoioService } from '../core/apoio.service';
 
 @Component({
   selector: 'app-user',
@@ -18,7 +19,8 @@ export class UserComponent implements OnInit {
 
   constructor(
     private toastyService: ToastyService,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private apoioService: ApoioService
   ) {
     this.getAll();
   }
@@ -54,11 +56,12 @@ export class UserComponent implements OnInit {
             'user': resp.data(),
             'id': resp.id
           }
-          if(data.user.dtBirth!=null){
-            data.user.dtBirth = data.user.dtBirth.toDate();
+          if (data.user.dtBirth) {
+            data.user.dtBirth = new Date(data.user.dtBirth.toString());
           }
           this.userDTO = data;
           this.display = true;
+
         } else {
           this.toastyService.showWarn("Usuário não encontrado!");
         }
@@ -67,6 +70,7 @@ export class UserComponent implements OnInit {
       .catch(resp => {
         console.log(resp);
         this.toastyService.showError("Erro ao buscar usuário!");
+        this.displaySpinner = false;
       });
   }
 

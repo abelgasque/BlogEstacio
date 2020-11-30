@@ -30,10 +30,14 @@ import {SplitButtonModule} from 'primeng/splitbutton';
 import { SharedModule } from '../shared/shared.module';
 import { PublishComponent } from './publish.component';
 import { PublishModelFormComponent } from './publish-model-form/publish-model-form.component';
-import { PublishFeedbackComponent } from './publish-feedback/publish-feedback.component';
+import { PublishFeedComponent } from './publish-feed/publish-feed.component';
 
 @NgModule({
-  declarations: [PublishComponent, PublishModelFormComponent, PublishFeedbackComponent],
+  declarations: [
+    PublishComponent, 
+    PublishModelFormComponent, 
+    PublishFeedComponent
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -67,7 +71,7 @@ import { PublishFeedbackComponent } from './publish-feedback/publish-feedback.co
     SharedModule
   ],
   exports:[
-    PublishFeedbackComponent
+    PublishFeedComponent
   ]
 })
 export class PublishModule { }

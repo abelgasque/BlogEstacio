@@ -26,7 +26,7 @@
             <div class="col-6 col-md-2" *ngIf="isType">
                 <label>Tipo</label>
                 <p-dropdown name="type" [options]="tipos" appendTo="body" [(ngModel)]="userDTO.user.type" required
-                    [disabled]="!this.isUpdate">
+                    [disabled]="!this.isUpdate||!this.isUpdateType">
                 </p-dropdown>
                 <small class="obrigatorio">Campo obrigatorio</small>
             </div>
@@ -43,19 +43,18 @@
                     [disabled]="!this.isUpdate">
                 <small class="obrigatorio">Campo obrigatorio</small>
             </div>
-            <div class="col-6 col-md-2">
+            <div class="col-6 col-md-2" *ngIf="userDTO.user.dtBirth==null">
                 <label>Nascimento</label>
                 <p-calendar name="dtBirth" [(ngModel)]="userDTO.user.dtBirth" [locale]="this.apoioService.language"
                     dateFormat="dd/mm/yy" showButtonBar="true" readonlyInput="false" appendTo="body" showIcon="true"
-                    *ngIf="displayForm" [disabled]="!isUpdate" [yearNavigator]="true" yearRange="1970:2020"
-                    [monthNavigator]="true">
+                    [disabled]="!isUpdate" [yearNavigator]="true" yearRange="1970:2020" [monthNavigator]="true">
                 </p-calendar>
                 <small class="opcional">Campo opcional</small>
             </div>
             <div class="col-12 col-md-2" *ngIf="isActive">
-                <label>Situação</label>
+                <label>Ativo</label>
                 <p-toggleButton name="isActive" [(ngModel)]="this.userDTO.user.isActive" onLabel="Ativo"
-                    offLabel="Inativo" required [disabled]="!isUpdate"></p-toggleButton>
+                    offLabel="Inativo" required [disabled]="!isUpdate||!isUpdateActive"></p-toggleButton>
                 <small class="obrigatorio">Campo obrigatório</small>
             </div>
         </div>
@@ -106,7 +105,11 @@
             </div>
         </div>
     </p-panel>
-    <button type="submit" *ngIf="this.isUpdate" [icon]="this.userDTO.id == null?'pi pi-plus':'pi pi-pencil'"
-        [label]="this.userDTO.id==null?'Inserir':'Atualizar'" [disabled]="!form.valid" pButton></button>
-    <button icon="pi pi-trash" label="Cancelar" (click)="retornoPersistencia.emit(false)" pButton></button>
+    <div class="row">
+        <button class="col-12 col-md-2" type="submit" *ngIf="this.isUpdate"
+            [icon]="this.userDTO.id == null?'pi pi-plus':'pi pi-pencil'"
+            [label]="this.userDTO.id==null?'Inserir':'Atualizar'" [disabled]="!form.valid" pButton></button>
+        <button *ngIf="isBtnCancel" class="col-12 col-md-2" icon="pi pi-trash" label="Cancelar"
+            (click)="retornoPersistencia.emit(false)" pButton></button>
+    </div>
 </form>

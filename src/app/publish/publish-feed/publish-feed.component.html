@@ -1,15 +1,17 @@
 <p-table [value]="publications" [responsive]="true" [paginator]="true" [rows]="10" [showCurrentPageReport]="true"
     currentPageReportTemplate="Registro {first} até {last} com total de {totalRecords} registros">
-    <ng-template pTemplate="caption">
+    <ng-template pTemplate="caption" *ngIf="isAddPublish">
         <div class="ui-helper-clearfix" style="text-align: center" *ngIf="this.authService.userDTO.id!=null">
-            <button type="button" label="Inserir" icon="pi pi-plus" (click)="setPublish()" pButton></button>
+            <button type="button" label="Inserir" icon="pi pi-plus" (click)="setPublish()" pButton
+                [disabled]="!this.authService.userDTO.user.isActive"></button>
         </div>
     </ng-template>
     <ng-template pTemplate="body" let-rowData>
         <tr style="background-color: grey;">
             <td data-aos="fade-down" data-aos-duration="1000">
                 <mat-card>
-                    <mat-card-header *ngIf="isHeader">
+                    <mat-card-header *ngIf="isHeader"
+                        (click)="this.apoioService.getUserAccount(rowData.publish.user.id)">
                         <img mat-card-avatar [src]="rowData.publish.user.photoURL">
                         <mat-card-title>{{rowData.publish.user.name}}</mat-card-title>
                         <mat-card-subtitle>
@@ -20,6 +22,10 @@
                         <div class="row">
                             <div class="col-12 p-fluid">
                                 <mat-card-title>{{rowData.publish.title}}</mat-card-title>
+                                <mat-card-subtitle *ngIf="isActiveHeader"
+                                [style.color]="rowData.publish.isActive?'green':'red'">
+                                    {{rowData.publish.isActive?'Ativo':'Inátivo'}}
+                                </mat-card-subtitle>
                                 <div class="col-12">
                                     <p>{{rowData.publish.description}}</p>
                                 </div>

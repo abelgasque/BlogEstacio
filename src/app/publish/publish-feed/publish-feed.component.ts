@@ -1,21 +1,24 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import AOS from 'aos';
 import { ApoioService } from 'src/app/core/apoio.service';
 import { PublishDTO } from 'src/app/core/model';
 import { AuthService } from 'src/app/security/auth.service';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 
+import AOS from 'aos';
+
 @Component({
-  selector: 'app-publish-feedback',
-  templateUrl: './publish-feedback.component.html',
-  styleUrls: ['./publish-feedback.component.css']
+  selector: 'app-publish-feed',
+  templateUrl: './publish-feed.component.html',
+  styleUrls: ['./publish-feed.component.css']
 })
-export class PublishFeedbackComponent implements OnInit {
+export class PublishFeedComponent implements OnInit {
 
   @Input() publications: any[] = [];
   @Input() isFooter: boolean = false;
   @Input() isHeader: boolean = false;
+  @Input() isAddPublish: boolean = false;
+  @Input() isActiveHeader: boolean = false;
   @Output() returnPersist = new EventEmitter<boolean>();
   displayForm: boolean = false;
   displaySpinner: boolean = false;
@@ -23,9 +26,9 @@ export class PublishFeedbackComponent implements OnInit {
   publishDTO = new PublishDTO();
 
   constructor(
+    private db: AngularFirestore,
     public apoioService: ApoioService,
     private toastyService: ToastyService,
-    private db: AngularFirestore,
     public authService: AuthService
   ) { }
 
@@ -79,4 +82,5 @@ export class PublishFeedbackComponent implements OnInit {
         this.displaySpinner = false;
       });
   }
+
 }

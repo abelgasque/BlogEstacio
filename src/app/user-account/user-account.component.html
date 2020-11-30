@@ -1,5 +1,7 @@
 <app-navbar></app-navbar>
+<app-toasty></app-toasty>
 <nav mat-tab-nav-bar>
-    <a mat-tab-link routerLinkActive="active" [routerLink]="['/home']">Dados pessoais</a>
-    <a mat-tab-link routerLinkActive="active" [routerLink]="['']">Publicações do usuário</a>
+    <a mat-tab-link routerLinkActive="active" [routerLink]="['/user-account','default']">Dados pessoais</a>
+    <a mat-tab-link routerLinkActive="active" [routerLink]="['/user-account','publications']">Publicações do usuário</a>
 </nav>
+<router-outlet></router-outlet>

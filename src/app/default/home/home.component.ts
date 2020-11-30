@@ -10,12 +10,14 @@ import { PublishDTO } from 'src/app/core/model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
+  
   displayForm: boolean = false;
   displaySpinner: boolean = false;
-  publicacoes: any[] = [];
+  publications: any[] = [];
+
   constructor(
-    private toastyService: ToastyService,
-    private db: AngularFirestore
+    private db: AngularFirestore,
+    private toastyService: ToastyService
   ) { }
 
   ngOnInit(): void {
@@ -31,7 +33,7 @@ export class HomeComponent implements OnInit {
 
   getAll() {
     this.displaySpinner = true;
-    let publicacoes: any[] = [];
+    let publications: any[] = [];
     this.db.collection('publish', ref =>
       ref.where('isActive','==',true)
     ).get()
@@ -41,9 +43,9 @@ export class HomeComponent implements OnInit {
           let data = new PublishDTO();
           data.id = doc.id;
           data.publish = doc.data();
-          publicacoes.push(data);
+          publications.push(data);
         });
-        this.publicacoes = publicacoes;
+        this.publications = publications;
         this.displaySpinner = false;
       })
       .catch(error => {

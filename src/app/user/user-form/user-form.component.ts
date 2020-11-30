@@ -11,11 +11,13 @@ import { UserDTO } from 'src/app/core/model';
 })
 export class UserFormComponent implements OnInit {
 
-  @Input() displayForm: boolean = false;
   @Input() userDTO: UserDTO;
   @Input() isType: boolean = false;
   @Input() isActive: boolean = false;
   @Input() isUpdate: boolean = false;
+  @Input() isUpdateType: boolean = false;
+  @Input() isUpdateActive: boolean = false;
+  @Input() isBtnCancel: boolean = true;
   @Output() retornoPersistencia = new EventEmitter<boolean>();
   tipos = [
     { label: 'Administrador', value: 'ADMINISTRADOR' },
@@ -30,8 +32,8 @@ export class UserFormComponent implements OnInit {
   displaySpinner: boolean = false;
 
   constructor(
-    private toasty: ToastyService,
     private db: AngularFirestore,
+    private toasty: ToastyService,
     public apoioService: ApoioService
   ) { }
 
@@ -66,13 +68,13 @@ export class UserFormComponent implements OnInit {
   update() {
     this.db.collection("user").doc(this.userDTO.id).update(Object.assign({}, this.userDTO.user))
       .then((resp: any) => {
-        this.toasty.showSuccess("Usuario atualizada");
+        this.toasty.showSuccess("Usuário atualizado com sucesso");
         this.retornoPersistencia.emit(true);
       })
       .catch(resp => {
         console.log(resp);
         this.retornoPersistencia.emit(false);
-        this.toasty.showError("Erro ao atualizada!");
+        this.toasty.showError("Erro ao atualizar usuário!");
       });
   }
 

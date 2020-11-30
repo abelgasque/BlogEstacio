@@ -32,8 +32,8 @@ export class UserFormModelComponent implements OnInit {
   displaySpinner: boolean = false;
 
   constructor(
-    private toasty: ToastyService,
     private db: AngularFirestore,
+    private toasty: ToastyService,
     public apoioService: ApoioService
   ) { }
 
@@ -67,13 +67,13 @@ export class UserFormModelComponent implements OnInit {
   update() {
     this.db.collection("user").doc(this.userDTO.id).update(Object.assign({}, this.userDTO.user))
       .then((resp: any) => {
-        this.toasty.showSuccess("Usuario atualizada");
+        this.toasty.showSuccess("Usuário atualizado com sucesso");
         this.retornoPersistencia.emit(true);
       })
       .catch(resp => {
         console.log(resp);
         this.retornoPersistencia.emit(false);
-        this.toasty.showError("Erro ao atualizada!");
+        this.toasty.showError("Erro ao atualizadar usuário!");
       });
   }
 
