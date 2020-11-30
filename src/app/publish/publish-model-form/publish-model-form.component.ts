@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
-import { ApoioService } from 'src/app/util/apoio.service';
-import { PublishDTO } from 'src/app/util/model';
+import { ApoioService } from 'src/app/core/apoio.service';
+import { PublishDTO } from 'src/app/core/model';
 
 @Component({
   selector: 'app-publish-model-form',

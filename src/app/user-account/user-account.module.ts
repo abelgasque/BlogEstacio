@@ -5,6 +5,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 
 import { UserAccountComponent } from './user-account.component';
 import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [UserAccountComponent],
@@ -12,7 +13,8 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     RouterModule,
     
-    MatTabsModule
+    MatTabsModule,
+    SharedModule
   ]
 })
 export class UserAccountModule { }

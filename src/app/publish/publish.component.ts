@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { MenuItem } from 'primeng/api';
 import { ToastyService } from '../shared/components/toasty/toasty.service';
-import { ApoioService } from '../util/apoio.service';
-import { Publish, PublishDTO } from '../util/model';
+import { ApoioService } from '../core/apoio.service';
+import { PublishDTO } from '../core/model';
 
 @Component({
   selector: 'app-publish',

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import AOS from 'aos';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
+import { PublishDTO } from 'src/app/core/model';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,9 @@ import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-
+  displayForm: boolean = false;
   displaySpinner: boolean = false;
   publicacoes: any[] = [];
-
   constructor(
     private toastyService: ToastyService,
     private db: AngularFirestore
@@ -22,20 +22,34 @@ export class HomeComponent implements OnInit {
     AOS.init();
     this.getAll();
   }
+  returnPersistForm(event: boolean) {
+    if (event) {
+      this.getAll();
+    }
+    this.displayForm = false;
+  }
 
   getAll() {
     this.displaySpinner = true;
     let publicacoes: any[] = [];
-    this.db.collection('publicacao').get().subscribe((snapshot) => {
-      snapshot.forEach((doc) => {
-        let data = {
-          'id': doc.id,
-          'data': doc.data()
-        }
-        publicacoes.push(data);
+    this.db.collection('publish', ref =>
+      ref.where('isActive','==',true)
+    ).get()
+      .toPromise()
+      .then((snapshot) => {
+        snapshot.forEach((doc: any) => {
+          let data = new PublishDTO();
+          data.id = doc.id;
+          data.publish = doc.data();
+          publicacoes.push(data);
+        });
+        this.publicacoes = publicacoes;
+        this.displaySpinner = false;
+      })
+      .catch(error => {
+        console.log(error);
+        this.toastyService.showError("Erro ao listar publicações");
+        this.displaySpinner = false;
       });
-    })
-    this.publicacoes = publicacoes;
-    this.displaySpinner = false;
   }
 }

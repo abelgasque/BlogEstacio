@@ -65,6 +65,9 @@ import { PublishFeedbackComponent } from './publish-feedback/publish-feedback.co
     MatButtonModule,
     
     SharedModule
+  ],
+  exports:[
+    PublishFeedbackComponent
   ]
 })
 export class PublishModule { }

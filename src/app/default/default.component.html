@@ -1,7 +1,8 @@
 <app-toasty></app-toasty>
+<app-navbar></app-navbar>
 <nav mat-tab-nav-bar>
     <a mat-tab-link routerLinkActive="active" [routerLink]="['']">Landing Page</a>
-    <a mat-tab-link routerLinkActive="active">Publicações</a>
+    <a mat-tab-link routerLinkActive="active" [routerLink]="['home']">Publicações</a>
 </nav>
 <div class="col-12">
     <router-outlet></router-outlet>

@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { TreeNode } from 'primeng/api';
 import { AuthService } from 'src/app/security/auth.service';
-import { ApoioService } from 'src/app/util/apoio.service';
+import { ApoioService } from 'src/app/core/apoio.service';
 
 export class CategoriaDTO {
   categoria: any;

@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
-import { ApoioService } from 'src/app/util/apoio.service';
-import { UserDTO } from 'src/app/util/model';
+import { ApoioService } from 'src/app/core/apoio.service';
+import { UserDTO } from 'src/app/core/model';
 
 @Component({
   selector: 'app-user-form-model',
@@ -21,7 +21,9 @@ export class UserFormModelComponent implements OnInit {
     { label: 'Administrador', value: 'ADMINISTRADOR' },
     { label: 'Coordenador', value: 'COORDENADOR' },
     { label: 'Professor', value: 'PROFESSOR' },
-    { label: 'Aluno', value: 'ALUNO' }
+    { label: 'Aluno', value: 'ALUNO' },
+    { label: 'Comum', value: 'COMUM' },
+    
   ];
   generos = [
     { label: 'Masculino', value: 'MASCULINO' },

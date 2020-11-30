@@ -11,6 +11,7 @@ import { HomeComponent } from './home/home.component';
 import { DefaultComponent } from './default.component';
 import { SharedModule } from './../shared/shared.module';
 import { LandpageComponent } from './landpage/landpage.component';
+import { PublishModule } from '../publish/publish.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { LandpageComponent } from './landpage/landpage.component';
     MatExpansionModule,
 
     SharedModule,
+    PublishModule
 
   ]
 })

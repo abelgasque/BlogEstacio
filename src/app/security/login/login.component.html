@@ -6,7 +6,26 @@
             <span class="login">Login</span>
         </div>
         <div class="row" fxLayoutAlign="center center">
-            <div class="col-12 p-fluid">
+            <mat-nav-list>
+                <mat-list-item class="list-item" (click)="this.auth.loginGoogle()">
+                    <img class="iconGoogle" src="../../../assets/img/google-icon.png">
+                    <p matLine>
+                        Google
+                    </p>
+                </mat-list-item>
+                <mat-list-item class="list-item" (click)="this.auth.loginFacebook()">
+                    <img class="iconFacebook" src="../../../assets/img/facebook-icon.png">
+                    <p mat-line>
+                        Facebook
+                    </p>
+                </mat-list-item>
+                <mat-list-item class="list-item" [routerLink]="['']" routerLinkActive="active-link">
+                    <p matLine>
+                        Voltar ao inicio
+                    </p>
+                </mat-list-item>
+            </mat-nav-list>
+            <!-- <div class="col-12 p-fluid">
                 <button pButton type="button" label="Google" (click)="this.auth.loginGoogle()"></button>
             </div>
             <div class="col-12 p-fluid">
@@ -16,7 +35,7 @@
                 <a mat-button [routerLink]="['']" routerLinkActive="active-link">
                     Voltar ao inicio
                 </a>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>

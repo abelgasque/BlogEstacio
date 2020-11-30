@@ -1,11 +1,11 @@
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Injectable } from '@angular/core';
-import { ApoioService } from '../util/apoio.service';
+import { ApoioService } from '../core/apoio.service';
 import { Router } from '@angular/router';
 import firebase from 'firebase/app';
 import { ToastyService } from '../shared/components/toasty/toasty.service';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { User, UserDTO } from '../util/model';
+import { User, UserDTO } from '../core/model';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +64,7 @@ export class AuthService {
   getUserAuth(provider: string) {
     this.userDTO = new UserDTO();
     this.auth.authState.subscribe(userAuth => {
-      if (userAuth) {
+      if (userAuth && this.userDTO.id==null) {
         this.db.collection('user').doc(userAuth.uid).get()
           .toPromise()
           .then((response: any) => {

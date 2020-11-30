@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ToastyService } from '../shared/components/toasty/toasty.service';
-import { UserDTO } from '../util/model';
+import { UserDTO } from '../core/model';
 
 @Component({
   selector: 'app-user',
