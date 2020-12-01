@@ -2,8 +2,9 @@
     currentPageReportTemplate="Registro {first} até {last} com total de {totalRecords} registros">
     <ng-template pTemplate="caption" *ngIf="isAddPublish">
         <div class="ui-helper-clearfix" style="text-align: center" *ngIf="this.authService.userDTO.id!=null">
-            <button type="button" label="Inserir" icon="pi pi-plus" (click)="setPublish()" pButton
-                [disabled]="!this.authService.userDTO.user.isActive"></button>
+            <p-splitButton label="Atualizar" icon="pi pi-refresh" (onClick)="this.returnPersist.emit(true);" 
+            [model]="this.itemsTable">
+            </p-splitButton>
         </div>
     </ng-template>
     <ng-template pTemplate="body" let-rowData>

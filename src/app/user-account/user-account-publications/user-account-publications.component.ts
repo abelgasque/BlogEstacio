@@ -25,6 +25,12 @@ export class UserAccountPublicationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  
+  }
+  returnPersistForm(event: boolean) {
+    if (event) {
+      this.getPublicationsUserAccount();
+    }
   }
 
   getPublicationsUserAccount() {

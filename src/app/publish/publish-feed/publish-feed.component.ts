@@ -6,6 +6,7 @@ import { AuthService } from 'src/app/security/auth.service';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 
 import AOS from 'aos';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-publish-feed',
@@ -24,17 +25,33 @@ export class PublishFeedComponent implements OnInit {
   displaySpinner: boolean = false;
   titleForm: string;
   publishDTO = new PublishDTO();
+  itemsTable: MenuItem[];
 
   constructor(
     private db: AngularFirestore,
     public apoioService: ApoioService,
     private toastyService: ToastyService,
     public authService: AuthService
-  ) { }
+  ) {
+    this.getItemsTable();
+  }
 
   ngOnInit() {
     AOS.init();
   }
+
+  getItemsTable() {
+    if (this.authService.userDTO.user.isActive) {
+      this.itemsTable = [
+        {
+          label: 'Inserir', icon: 'pi pi-plus', command: () => {
+            this.setPublish();
+          }
+        }
+      ]
+    }
+  }
+
   returnPersistForm(event: boolean) {
     if (event) {
       this.returnPersist.emit(true);
