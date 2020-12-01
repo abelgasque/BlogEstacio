@@ -23,6 +23,11 @@ export class UserAccountDefaultComponent implements OnInit {
   }
 
   getUserAccount() {
-    this.userDTO = this.apoioService.getUserStorage();
+    let userDTO = this.apoioService.getUserStorage();
+    if (userDTO.user.dtBirth) {
+      userDTO.user.dtBirth = new Date(userDTO.user.dtBirth.toString());
+    }
+    this.userDTO = userDTO;
+    console.log(this.userDTO);
   }
 }

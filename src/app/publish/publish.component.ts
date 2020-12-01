@@ -86,17 +86,22 @@ export class PublishComponent implements OnInit {
   getAll() {
     this.displaySpinner = true;
     let publications: any[] = [];
-    this.db.collection('publish').get().subscribe((snapshot) => {
-      snapshot.forEach((doc) => {
-        let data = {
-          'id': doc.id,
-          'data': doc.data()
-        }
-        publications.push(data);
+    this.db.collection('publish').get()
+      .toPromise()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => {
+          let data = {
+            'id': doc.id,
+            'data': doc.data()
+          }
+          publications.push(data);
+        });
+        this.publications = publications;
+        this.displaySpinner = false;
+      })
+      .catch(error =>{
+        console.log(error);
+        this.toastyService.showError("Erro ao listar publicações");
       });
-    })
-    this.publications = publications;
-    console.log(this.publications);
-    this.displaySpinner = false;
   }
 }

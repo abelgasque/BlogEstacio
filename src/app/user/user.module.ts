@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
@@ -30,6 +29,8 @@ import { UserFormModelComponent } from './user-form-model/user-form-model.compon
     CommonModule,
     FormsModule,
     RouterModule,
+    FlexLayoutModule,
+
     TableModule,
     ButtonModule,
     InputTextModule,

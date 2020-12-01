@@ -58,9 +58,6 @@ export class ApoioService {
             'user': resp.data(),
             'id': resp.id
           }
-          if (data.user.dtBirth) {
-            data.user.dtBirth = new Date(data.user.dtBirth.toString());
-          }
           this.getUserAuthStorage(data);
           this.router.navigate(['/user-account','default']);
         } else {

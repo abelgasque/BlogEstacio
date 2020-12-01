@@ -17,7 +17,8 @@ export class UserFormModelComponent implements OnInit {
   @Input() isActive: boolean = false;
   @Input() isUpdate: boolean = false;
   @Output() retornoPersistencia = new EventEmitter<boolean>();
-  tipos = [
+  types = [
+    { label: 'Selecionar', value: null },
     { label: 'Administrador', value: 'ADMINISTRADOR' },
     { label: 'Coordenador', value: 'COORDENADOR' },
     { label: 'Professor', value: 'PROFESSOR' },
@@ -26,6 +27,7 @@ export class UserFormModelComponent implements OnInit {
     
   ];
   generos = [
+    { label: 'Selecionar', value: null },
     { label: 'Masculino', value: 'MASCULINO' },
     { label: 'Feminino', value: 'FEMININO' }
   ];

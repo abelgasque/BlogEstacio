@@ -72,7 +72,7 @@ export class AuthService {
               this.userDTO.id = response.id;
               this.userDTO.user = response.data();
               if (this.router.url == '/security/login') {
-                this.router.navigate(['']);
+                this.apoio.getUserAccount(this.userDTO.id);
               }
             } else {
               this.insertUserAuth(userAuth, provider, userAuth.uid);

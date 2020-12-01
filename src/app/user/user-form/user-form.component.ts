@@ -20,12 +20,15 @@ export class UserFormComponent implements OnInit {
   @Input() isBtnCancel: boolean = true;
   @Output() retornoPersistencia = new EventEmitter<boolean>();
   tipos = [
+    { label: 'Selecionar', value: null },
     { label: 'Administrador', value: 'ADMINISTRADOR' },
     { label: 'Coordenador', value: 'COORDENADOR' },
     { label: 'Professor', value: 'PROFESSOR' },
-    { label: 'Aluno', value: 'ALUNO' }
+    { label: 'Aluno', value: 'ALUNO' },
+    { label: 'Comum', value: 'COMUM' }
   ];
   generos = [
+    { label: 'Selecionar', value: null },
     { label: 'Masculino', value: 'MASCULINO' },
     { label: 'Feminino', value: 'FEMININO' }
   ];
