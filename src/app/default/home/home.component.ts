@@ -3,6 +3,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import AOS from 'aos';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
 import { PublishDTO } from 'src/app/core/model';
+import { AuthService } from 'src/app/security/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +18,15 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private db: AngularFirestore,
-    private toastyService: ToastyService
+    private toastyService: ToastyService,
+    public auth: AuthService
   ) { }
 
   ngOnInit(): void {
     AOS.init();
     this.getAll();
   }
+  
   returnPersistForm(event: boolean) {
     if (event) {
       this.getAll();

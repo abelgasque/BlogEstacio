@@ -1,2 +1,3 @@
 <app-publish-feed [publications]="this.publications" [isAddPublish]="this.isAddPublish()"
-[isActiveHeader]="true"  [isActiveHeader]="true" (returnPersist)="returnPersistForm($event)"></app-publish-feed>
+    [isFooter]="this.userDTO.user.isActive" [isActiveHeader]="true"
+    (returnPersist)="returnPersistForm($event)"></app-publish-feed>

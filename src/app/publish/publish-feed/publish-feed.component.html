@@ -2,8 +2,8 @@
     currentPageReportTemplate="Registro {first} até {last} com total de {totalRecords} registros">
     <ng-template pTemplate="caption" *ngIf="isAddPublish">
         <div class="ui-helper-clearfix" style="text-align: center" *ngIf="this.authService.userDTO.id!=null">
-            <p-splitButton label="Atualizar" icon="pi pi-refresh" (onClick)="this.returnPersist.emit(true);" 
-            [model]="this.itemsTable">
+            <p-splitButton label="Atualizar" icon="pi pi-refresh" (onClick)="this.returnPersist.emit(true);"
+                [model]="this.itemsTable">
             </p-splitButton>
         </div>
     </ng-template>
@@ -24,7 +24,7 @@
                             <div class="col-12 p-fluid">
                                 <mat-card-title>{{rowData.publish.title}}</mat-card-title>
                                 <mat-card-subtitle *ngIf="isActiveHeader"
-                                [style.color]="rowData.publish.isActive?'green':'red'">
+                                    [style.color]="rowData.publish.isActive?'green':'red'">
                                     {{rowData.publish.isActive?'Ativo':'Inátivo'}}
                                 </mat-card-subtitle>
                                 <div class="col-12">
@@ -33,8 +33,9 @@
                             </div>
                         </div>
                     </mat-card-content>
-                    <mat-card-actions *ngIf="isFooter||this.authService.userDTO.id==rowData.publish.user.id">
-                        <button mat-button type="button" (click)="getPublish(rowData.id)">Editar</button>
+                    <mat-card-actions>
+                        <button *ngIf="isFooter&&this.authService.userDTO.id==rowData.publish.user.id" mat-button
+                            type="button" (click)="getPublish(rowData.id)">Editar</button>
                     </mat-card-actions>
                 </mat-card>
             </td>

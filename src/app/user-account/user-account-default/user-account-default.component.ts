@@ -24,6 +24,5 @@ export class UserAccountDefaultComponent implements OnInit {
 
   getUserAccount() {
     this.userDTO = this.apoioService.getUserStorage();
-    console.log(this.userDTO);
   }
 }

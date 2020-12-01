@@ -25,7 +25,7 @@ export class UserAccountPublicationsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-  
+
   }
   returnPersistForm(event: boolean) {
     if (event) {
@@ -52,13 +52,12 @@ export class UserAccountPublicationsComponent implements OnInit {
         this.toastyService.showError("Erro ao listar publicações do usuário!");
       });
   }
-  
-  isAddPublish() {
-    if (this.auth.userDTO.id == this.userDTO.id) {
+
+  isAddPublish(): boolean {
+    if (this.auth.userDTO.id == this.userDTO.id && this.auth.userDTO.user.isActive) {
       return true;
     } else {
       return false;
     }
   }
-
 }
