@@ -28,6 +28,5 @@ export class UserAccountDefaultComponent implements OnInit {
       userDTO.user.dtBirth = new Date(userDTO.user.dtBirth.toString());
     }
     this.userDTO = userDTO;
-    console.log(this.userDTO);
   }
 }

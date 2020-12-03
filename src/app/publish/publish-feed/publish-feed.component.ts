@@ -4,7 +4,6 @@ import { ApoioService } from 'src/app/core/apoio.service';
 import { PublishDTO } from 'src/app/core/model';
 import { AuthService } from 'src/app/security/auth.service';
 import { ToastyService } from 'src/app/shared/components/toasty/toasty.service';
-
 import AOS from 'aos';
 import { MenuItem } from 'primeng/api';
 

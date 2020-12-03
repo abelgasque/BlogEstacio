@@ -20,7 +20,7 @@ export class UserComponent implements OnInit {
   constructor(
     private toastyService: ToastyService,
     private db: AngularFirestore,
-    private apoioService: ApoioService
+    public apoioService: ApoioService
   ) {
     this.getAll();
   }
@@ -57,7 +57,7 @@ export class UserComponent implements OnInit {
             'id': resp.id
           }
           if (data.user.dtBirth) {
-            data.user.dtBirth = new Date(data.user.dtBirth.toString());
+            data.user.dtBirth = data.user.dtBirth.toDate();
           }
           this.userDTO = data;
           this.display = true;

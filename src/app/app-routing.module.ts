@@ -10,12 +10,14 @@ import { SecurityComponent } from './security/security.component';
 import { LoginComponent } from './security/login/login.component';
 import { UserAccountDefaultComponent } from './user-account/user-account-default/user-account-default.component';
 import { UserAccountPublicationsComponent } from './user-account/user-account-publications/user-account-publications.component';
+import { AboutComponent } from './default/about/about.component';
 
 const routes: Routes = [
     {
         path: '', component: DefaultComponent,
         children: [
             { path: '', component: LandpageComponent },
+            { path: 'about', component: AboutComponent },
             { path: 'home', component: HomeComponent }
         ]
     },

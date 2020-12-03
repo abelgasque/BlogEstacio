@@ -1,41 +1,26 @@
-<div class="row">
-    <div class="col-12">
-        <div id="demo" class="carousel slide" data-ride="carousel">
+<div class="container">
+    <div class="row">
+        <div id="demo" class="carousel slide col-12" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="./../../../assets/img/landpage/carrocel/qmsomos.jpg" alt="Los Angeles" width="1100"
-                        height="500">
-                    <a href="#section1">
-                        <div class="carousel-caption">
-                            <h3>Quem Somos?</h3>
-                            <b>
-                                <p>Como surgimos e o'que fazemos?</p>
-                            </b>
-                        </div>
-                    </a>
-                </div>
-                <div class="carousel-item">
-                    <img src="./../../../assets/img/landpage/carrocel/nossacomunidade.jpg" alt="Chicago" width="1100"
-                        height="500">
-                    <a href="#section2">
-                        <div class="carousel-caption">
-                            <h3>Nossa comunidade</h3>
-                            <b>
-                                <p>Como funciona?</p>
-                            </b>
-                        </div>
-                    </a>
-                </div>
-                <div class="carousel-item">
-                    <img src="./../../../assets/img/landpage/carrocel/blog.png" alt="New York" width="1100"
-                        height="500">
+                    <img src="./../../../assets/img/landpage/carrocel/qmsomos.jpg">
                     <div class="carousel-caption">
-                        <a href="http://localhost:4200/#/security/login">
-                            <h3>Blog</h3>
-                        </a>
-                        <b>
-                            <p>Faça seu cadastro!</p>
-                        </b>
+                        <h3>Quem Somos?</h3>
+                        <p>Como surgimos e o'que fazemos?</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="./../../../assets/img/landpage/carrocel/nossacomunidade.jpg">
+                    <div class="carousel-caption">
+                        <h3>Nossa comunidade</h3>
+                        <p>Como funciona?</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="./../../../assets/img/landpage/carrocel/blog.png">
+                    <div class="carousel-caption">
+                        <h3>Blog</h3>
+                        <p>Faça seu cadastro!</p>
                     </div>
                 </div>
             </div>
@@ -46,82 +31,56 @@
                 <span class="carousel-control-next-icon"></span>
             </a>
         </div>
-    </div>
-    <h2 class="col-12">Regras do Blog</h2>
-    <div class="col-12">
-        <mat-accordion>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        1°
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Não xingar!
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p>Não é permitido qualquer tipo de ataque ou agreção verbal entre os membros do blog. Isso lhe
-                    deixará sujeito a ter o post ou até mesmo a conta deletada.</p>
-            </mat-expansion-panel>
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        2°
-                    </mat-panel-title>
-                    <mat-panel-description>
-                        Não disseminar desinformação!
-                    </mat-panel-description>
-                </mat-expansion-panel-header>
-                <p>É absolutamente proibido qualquer tipo de resposta à questões sem um link de referência que
-                    encaminhe a um texto, dissertação, pdf, etc, que possa validar a resposta. Isso lhe deixará
-                    sujeito a ter o post ou até mesmo a conta deletada.</p>
-            </mat-expansion-panel>
-        </mat-accordion>
-        <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-            <mat-expansion-panel-header>
-                <mat-panel-title>
-                    3°
-                </mat-panel-title>
-                <mat-panel-description>
-                    Não seja superficial!
-                </mat-panel-description>
-            </mat-expansion-panel-header>
-            <p>Tanto quando for responder, quanto quando tiver uma questão, é necessário fornecer o máximo de
-                informações possível.</p>
-        </mat-expansion-panel>
-    </div>
-    <div class="col-12">
-        <div class="row">
-            <div id="section1" class="quemsomos col-12">
-                <h3>Como surgimos?</h3>
-                <p>
-                    A partir da necessidade tanto de alunos que estão em seu primeiro contato com a área da
-                    tecnologia para desenvolvimento de softwares, quanto para os que já as desbravam a um tempo,
-                    pois apesar da grande gama de informação sobre o assunto, muitas pessoas que ainda estão se
-                    adaptando com esse ambiente tão vasto de informação, necessitam de uma atenção direcionada.
-                </p>
-                <h3>O'que fazemos?</h3>
-                <p>
-                    Estamos a procura de otimizar cada dia mais uma plataforma para resolução de problemas e
-                    questões de alunos de cursos que irão formar desenvolvedores, sejam eles da Estácio ou não e
-                    independente da linguagem!
-                    bred for hunting.
-                </p>
-            </div>
+        <div class="col-12">
+            <h1>Como surgimos?</h1>
+            <p>
+                A partir da necessidade tanto de alunos que estão em seu primeiro contato com a área da
+                tecnologia para desenvolvimento de softwares, quanto para os que já as desbravam a um tempo,
+                pois apesar da grande gama de informação sobre o assunto, muitas pessoas que ainda estão se
+                adaptando com esse ambiente tão vasto de informação, necessitam de uma atenção direcionada.
+            </p>
+            <h1>O'que fazemos?</h1>
+            <p>
+                Estamos a procura de otimizar cada dia mais uma plataforma para resolução de problemas e
+                questões de alunos de cursos que irão formar desenvolvedores, sejam eles da Estácio ou não e
+                independente da linguagem!
+                bred for hunting.
+            </p>
+        </div>
+        <div class="col-12">
+            <h1>Regras do Blog</h1>
+            <h3>1° Não xingar!</h3>
+            <p>
+                Não é permitido qualquer tipo de ataque ou agreção verbal entre os membros do blog. Isso lhe
+                deixará sujeito a ter o post ou até mesmo a conta deletada.
+            </p>
+            <h3>2° Não disseminar desinformação!</h3>
+            <p>
+                É absolutamente proibido qualquer tipo de resposta à questões sem um link de referência que
+                encaminhe a um texto, dissertação, pdf, etc, que possa validar a resposta. Isso lhe deixará
+                sujeito a ter o post ou até mesmo a conta deletada.
+            </p>
+            <h3>3° Não seja superficial!</h3>
+            <p>
+                Tanto quando for responder, quanto quando tiver uma questão, é necessário fornecer o máximo de
+                informações possível.
+            </p>
         </div>
     </div>
-    <footer class="col-12">
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <h4>Siga-nos nas redes sociais</h4>
-                <p>@teste_teste</p>
-                <p>@teste_teste</p>
-            </div>
-            <div class="col-12 col-md-6">
-                <h4>Para reclamações ou duvidas:</h4>
-                <p>Abel Gasque</p>
-                <p>Brian Cascão</p>
-                <p>teste@teste.com</p>
-            </div>
-        </div>
-    </footer>
 </div>
+<footer class="col-12">
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <h4>Siga-nos nas redes sociais</h4>
+            <p>@teste_teste</p>
+            <p>@teste_teste</p>
+        </div>
+        <div class="col-12 col-md-6">
+            <h4>Para reclamações ou duvidas:</h4>
+            <p>Abel Gasque</p>
+            <p>Brian Cascão</p>
+            <p>teste@teste.com</p>
+        </div>
+    </div>
+</footer>
+<app-footer></app-footer>

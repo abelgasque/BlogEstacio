@@ -23,7 +23,11 @@
             <td>
                 <img class="img" [src]="rowData.data.photoURL">
             </td>
-            <td>{{rowData.data.name}}</td>
+            <td>
+                <a href="#" (click)="apoioService.getUserAccount(rowData.id)">
+                    {{rowData.data.name}} 
+                </a>    
+            </td>
             <td>{{rowData.data.mail}}</td>
             <td>{{rowData.data.type}}</td>
             <td [style.color]="rowData.data.isActive?'green':'red'">

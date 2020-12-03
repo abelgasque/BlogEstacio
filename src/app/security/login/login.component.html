@@ -7,13 +7,13 @@
         </div>
         <div class="row" fxLayoutAlign="center center">
             <mat-nav-list>
-                <mat-list-item class="list-item" (click)="this.auth.loginGoogle()">
+                <mat-list-item class="list-item" (click)="this.authService.loginGoogle()">
                     <img class="iconGoogle" src="../../../assets/img/google-icon.png">
                     <p matLine>
                         Google
                     </p>
                 </mat-list-item>
-                <mat-list-item class="list-item" (click)="this.auth.loginFacebook()">
+                <mat-list-item class="list-item" (click)="this.authService.loginFacebook()">
                     <img class="iconFacebook" src="../../../assets/img/facebook-icon.png">
                     <p mat-line>
                         Facebook

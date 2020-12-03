@@ -6,17 +6,21 @@ import { FormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 
 import { HomeComponent } from './home/home.component';
 import { DefaultComponent } from './default.component';
 import { SharedModule } from './../shared/shared.module';
 import { LandpageComponent } from './landpage/landpage.component';
 import { PublishModule } from '../publish/publish.module';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
     HomeComponent,
-    DefaultComponent, LandpageComponent
+    DefaultComponent, 
+    LandpageComponent, 
+    AboutComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +30,7 @@ import { PublishModule } from '../publish/publish.module';
     MatTabsModule,
     MatCardModule,
     MatExpansionModule,
+    MatIconModule,
 
     SharedModule,
     PublishModule

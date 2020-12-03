@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { ToastyService } from '../shared/components/toasty/toasty.service';
+import { UserDTO } from './model';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,14 @@ export class ApoioService {
     return moment(data).format("YYYY-MM-DD");
   }
 
+  formatToDateEn(data: any) {
+    return moment(data).format("YYYY-MM-DD");
+  }
+
+  formatToDatePtBr(data: any) {
+    return moment(data).format("DD/MM/YYYY");
+  }
+
   stringParaData(data: string) {
     return moment(data).toDate();
   }
@@ -58,8 +67,11 @@ export class ApoioService {
             'user': resp.data(),
             'id': resp.id
           }
+          if (data.user.dtBirth) {
+            data.user.dtBirth = data.user.dtBirth.toDate();
+          }
           this.getUserAuthStorage(data);
-          this.router.navigate(['/user-account','default']);
+          this.router.navigate(['/user-account', 'default']);
         } else {
           this.toastyService.showWarn("Usuário não encontrado!");
         }
@@ -71,8 +83,8 @@ export class ApoioService {
   }
 
   getUserAuthStorage(user: any) {
-    this.user = JSON.stringify(user);
-    localStorage.setItem("user", this.user);
+    user = JSON.stringify(user);
+    localStorage.setItem("user", user);
   }
 
   getUserStorage() {

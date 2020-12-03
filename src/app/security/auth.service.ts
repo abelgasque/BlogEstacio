@@ -67,10 +67,16 @@ export class AuthService {
       if (userAuth && this.userDTO.id==null) {
         this.db.collection('user').doc(userAuth.uid).get()
           .toPromise()
-          .then((response: any) => {
-            if (response.exists) {
-              this.userDTO.id = response.id;
-              this.userDTO.user = response.data();
+          .then((resp: any) => {
+            if (resp.exists) {
+              let data: any = {
+                'user': resp.data(),
+                'id': resp.id
+              }
+              if(data.user.dtBirth){
+                data.user.dtBirth = data.user.dtBirth.toDate();
+              }
+              this.userDTO = data;
               if (this.router.url == '/security/login') {
                 this.apoio.getUserAccount(this.userDTO.id);
               }
@@ -105,10 +111,9 @@ export class AuthService {
   loggout() {
     this.auth.signOut()
       .then(resp => {
-        this.apoio.removeUserStorage();
         this.userDTO = new UserDTO();
         this.toastyService.showSuccess("Sessão usuário encerrada!");
-        this.router.navigate([''])
+        this.router.navigate(['']);
       })
       .catch(resp => {
         console.log(resp);
