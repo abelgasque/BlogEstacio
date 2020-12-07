@@ -18,6 +18,7 @@ export class PublishModelFormComponent implements OnInit {
   @Output() retornoPersistencia = new EventEmitter<boolean>();
   users: any[] = [];
   tipos = [
+    { label: 'Selecionar', value: null },
     { label: 'Duvida', value: 'DUVIDA' },
     { label: 'Argumento', value: 'ARGUMENTO' },
     { label: 'Outros', value: 'OUTROS' },
@@ -73,7 +74,7 @@ export class PublishModelFormComponent implements OnInit {
     this.db.collection('user').get()
       .toPromise()
       .then((snapshot) => {
-        snapshot.forEach((doc:any) => {
+        snapshot.forEach((doc: any) => {
           let data = {
             'id': doc.id,
             'name': doc.data().name,

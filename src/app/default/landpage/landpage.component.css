@@ -7,23 +7,7 @@
   height: 100%;
 }
 
-.carousel-caption {
-  font-family: 'Montserrat', sans-serif;
-  background-color: rgba(0, 0, 0, 0.4);
-  color: #fff;
-  border-radius: 20px;
-  height: 90px;
-  text-align: center;
-  margin: auto;
-}
-
 h1{
   margin: 30px auto 30px;
   text-align: center;
-}
-
-footer {
-  background-color: #000;
-  color: #fff;
-  padding: 100px;
 }
