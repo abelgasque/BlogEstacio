@@ -7,26 +7,26 @@
         </div>
         <p-panel class="col-12" header="Dados pessoais" [toggleable]="true">
             <div class="p-grid p-fluid">
-                <div class="col-6 col-md-3">
+                <div class="col-12 col-md-3">
                     <label>Nome</label>
                     <input type="text" name="name" [(ngModel)]="userDTO.user.name" required maxlength="20" pInputText
                         [disabled]="!this.isUpdate">
                     <small class="obrigatorio">Campo obrigatorio</small>
                 </div>
-                <div class="col-6 col-md-2">
+                <div class="col-12 col-md-2">
                     <label>CPF</label>
                     <p-inputMask mask="999.999.999-99" name="nuResgistration" [(ngModel)]="userDTO.user.nuResgistration"
                         [disabled]="!this.isUpdate"></p-inputMask>
                     <small class="opcional">Campo opcional</small>
                 </div>
-                <div class="col-6 col-md-2">
+                <div class="col-12 col-md-2">
                     <label>Genero</label>
                     <p-dropdown name="genre" [options]="generos" appendTo="body" [(ngModel)]="userDTO.user.genre"
                         [disabled]="!this.isUpdate">
                     </p-dropdown>
                     <small class="opcional">Campo opcional</small>
                 </div>
-                <div class="col-6 col-md-2" *ngIf="isType">
+                <div class="col-12 col-md-2" *ngIf="isType">
                     <label>Tipo</label>
                     <p-dropdown name="type" [options]="types" appendTo="body" [(ngModel)]="userDTO.user.type" required
                         [disabled]="!this.isUpdate">
@@ -46,7 +46,7 @@
                         disabled>
                     <small class="obrigatorio">Campo obrigatorio</small>
                 </div>
-                <div class="col-6 col-md-2">
+                <div class="col-12 col-md-2">
                     <label>Nascimento</label>
                     <p-calendar name="dtBirth" [(ngModel)]="userDTO.user.dtBirth" [locale]="this.apoioService.language"
                         dateFormat="dd/mm/yy" showButtonBar="true" readonlyInput="false" appendTo="body" showIcon="true"
@@ -77,19 +77,19 @@
                         [disabled]="!this.isUpdate">
                     <small class="opcional">Opcional</small>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-12 col-md-3">
                     <label>Cidade</label>
                     <input pInputText type="text" name="city" [(ngModel)]="userDTO.user.city" maxlength="30"
                         [disabled]="!this.isUpdate">
                     <small class="opcional">Campo opcional</small>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-12 col-md-3">
                     <label>Bairro</label>
                     <input pInputText type="text" name="neighborhood" [(ngModel)]="userDTO.user.neighborhood"
                         maxlength="30" [disabled]="!this.isUpdate">
                     <small class="opcional">Campo opcional</small>
                 </div>
-                <div class="col-6 col-md-3">
+                <div class="col-12 col-md-3">
                     <label>Logradouro</label>
                     <input pInputText type="text" name="publicPlace" [(ngModel)]="userDTO.user.publicPlace"
                         maxlength="50" [disabled]="!this.isUpdate">

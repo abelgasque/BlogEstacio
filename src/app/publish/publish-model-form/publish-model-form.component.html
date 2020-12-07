@@ -8,14 +8,14 @@
                 required [disabled]="!isUpdate">
             <small class="obrigatorio">Campo obrigatorio</small>
         </div>
-        <div class="col-6 col-md-3">
+        <div class="col-12 col-md-3">
             <label>Tipo</label>
             <p-dropdown name="type" [options]="tipos" appendTo="body" [(ngModel)]="publishDTO.publish.type"
                 appendTo="body" required [disabled]="!isUpdate">
             </p-dropdown>
             <small class="obrigatorio">Campo obrigatorio</small>
         </div>
-        <div class="col-6 col-md-2">
+        <div class="col-12 col-md-2">
             <label>Data publicação</label>
             <p-calendar name="dt_publish" [(ngModel)]="publishDTO.publish.dt_publish"
                 [locale]="this.apoioService.language" dateFormat="dd/mm/yy" showButtonBar="true" readonlyInput="false"
@@ -31,7 +31,7 @@
             </p-dropdown>
             <small class="obrigatorio">Campo obrigatorio</small>
         </div>
-        <div class="col-6 col-md-2">
+        <div class="col-12 col-md-2">
             <label>Ativo</label>
             <p-toggleButton name="isActive" [(ngModel)]="this.publishDTO.publish.isActive" onLabel="Ativo"
                 offLabel="Inativo" required [disabled]="!isUpdate"></p-toggleButton>
